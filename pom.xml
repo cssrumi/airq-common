@@ -11,6 +11,13 @@
         <version>1.1</version>
     </parent>
 
+    <scm>
+        <developerConnection>scm:git:https://github.com/cssrumi/airq-common.git</developerConnection>
+        <connection>scm:git:https://github.com/cssrumi/airq-common.git</connection>
+        <url>https://github.com/cssrumi/airq-common.git</url>
+        <tag>HEAD</tag>
+    </scm>
+
     <dependencies>
         <dependency>
             <groupId>io.quarkus</groupId>

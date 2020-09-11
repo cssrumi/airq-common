@@ -84,9 +84,4 @@
             </plugin>
         </plugins>
     </build>
-
-
-  <scm>
-    <tag>common-1.0</tag>
-  </scm>
 </project>

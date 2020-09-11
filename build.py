@@ -1,4 +1,3 @@
-import os
 import subprocess
 import xml.etree.ElementTree as ET
 
@@ -18,8 +17,6 @@ tag = company + '/' + artifact_id + ':' + version
 parent_pom_tag = 'PARENT_POM_TAG=' + parent_pom_version
 
 print("building {} using parent pom {}".format(tag, parent_pom_version))
-
-print(os.getcwd())
 
 build = subprocess.Popen(['docker', 'build', '-f', 'src/main/docker/Dockerfile', '-t', tag, '--build-arg', parent_pom_tag, '.'])
 build.wait()

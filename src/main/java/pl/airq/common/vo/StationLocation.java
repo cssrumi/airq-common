@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 public class StationLocation {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(StationLocation.class);
-    private static final StationLocation EMPTY = new StationLocation(null, null);
+    public static final StationLocation EMPTY = new StationLocation(null, null);
     private static final String EMPTY_LOCATION_WARN = "Empty location found. Parsed to empty Location";
     private static final String DELIMITER = ",";
     private static final Map<String, Integer> COORD_MAP = Map.of("N", 1, "S", -1, "E", 1, "W", -1);

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Objects;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -19,6 +20,7 @@ public class StationLocation {
     private static final StationLocation EMPTY = new StationLocation(null, null);
     private static final String EMPTY_LOCATION_WARN = "Empty location found. Parsed to empty Location";
     private static final String DELIMITER = ",";
+    private static final Map<String, Integer> COORD_MAP = Map.of("N", 1, "S", -1, "E", 1, "W", -1);
 
     private final Float lon;
     private final Float lat;
@@ -49,14 +51,21 @@ public class StationLocation {
         }
 
         final String[] split = value.split(DELIMITER);
-        if (split.length != 2) {
-            LOGGER.warn("Invalid location value: {}. Parsed to empty Location", value);
-            return EMPTY;
+        final float lon;
+        final float lat;
+        switch (split.length) {
+            case 2:
+                lon = Float.parseFloat(split[0].strip());
+                lat = Float.parseFloat(split[1].strip());
+                return new StationLocation(lon, lat);
+            case 4:
+                lon = COORD_MAP.get(split[1].strip()) * Float.parseFloat(split[0].strip());
+                lat = COORD_MAP.get(split[3].strip()) * Float.parseFloat(split[2].strip());
+                return new StationLocation(lon, lat);
+            default:
+                LOGGER.warn("Invalid location value: {}. Parsed to empty Location", value);
+                return EMPTY;
         }
-
-        final Float lon = Float.valueOf(split[0].strip());
-        final Float lat = Float.valueOf(split[1].strip());
-        return new StationLocation(lon, lat);
     }
 
     public static StationLocation from(String lon, String lat) {

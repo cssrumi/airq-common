@@ -44,7 +44,7 @@ public class StationLocation {
     }
 
     @JsonCreator
-    public static StationLocation from(@JsonProperty("location") String value) {
+    public static StationLocation from(String value) {
         if (StringUtils.isEmpty(value) || StringUtils.containsOnly(value, ',')) {
             LOGGER.warn(EMPTY_LOCATION_WARN);
             return EMPTY;

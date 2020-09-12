@@ -20,26 +20,26 @@ public class Measurement {
     }
 
     public Double getDoubleValue() {
-        return value.doubleValue();
+        return value != null ? value.doubleValue() : null;
     }
 
     @JsonCreator
-    public static Measurement from(@JsonProperty("value") Float value) {
+    public static Measurement from(Float value) {
         return value != null ? new Measurement(value) : EMPTY;
     }
 
     @JsonCreator
-    public static Measurement fromDouble(@JsonProperty("value") Double value) {
+    public static Measurement fromDouble(Double value) {
         return value != null ? new Measurement(value.floatValue()) : EMPTY;
     }
 
     @JsonCreator
-    public static Measurement fromInteger(@JsonProperty("value") Integer value) {
+    public static Measurement fromInteger(Integer value) {
         return value != null ? new Measurement(Float.valueOf(value)) : EMPTY;
     }
 
     @JsonCreator
-    public static Measurement fromString(@JsonProperty("value") String value) {
+    public static Measurement fromString(String value) {
         if (StringUtils.isEmpty(value)) {
             return EMPTY;
         }

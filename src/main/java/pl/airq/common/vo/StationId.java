@@ -23,7 +23,7 @@ public class StationId {
     }
 
     @JsonCreator
-    public static StationId from(@JsonProperty("id") String value) {
+    public static StationId from(String value) {
         return StringUtils.isEmpty(value) ? EMPTY : new StationId(value);
     }
 

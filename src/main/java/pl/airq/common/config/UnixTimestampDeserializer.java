@@ -12,7 +12,7 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 
 public class UnixTimestampDeserializer extends JsonDeserializer<OffsetDateTime> {
-    private final Logger log = LoggerFactory.getLogger(UnixTimestampDeserializer.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(UnixTimestampDeserializer.class);
 
     @Override
     public OffsetDateTime deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
@@ -20,7 +20,7 @@ public class UnixTimestampDeserializer extends JsonDeserializer<OffsetDateTime> 
         try {
             return OffsetDateTime.ofInstant(Instant.ofEpochSecond(Long.parseLong(timestamp)), ZoneOffset.UTC);
         } catch (NumberFormatException e) {
-            log.warn("Unable to deserialize timestamp: " + timestamp, e);
+            LOGGER.warn("Unable to deserialize timestamp: " + timestamp, e);
             return null;
         }
     }

@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 @RegisterForReflection
 public class Measurement {
 
-    private static final Measurement EMPTY = new Measurement(null);
+    public static final Measurement EMPTY = new Measurement(null);
     private final Float value;
 
     private Measurement(Float value) {

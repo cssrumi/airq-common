@@ -44,7 +44,7 @@ public class Measurement {
             return EMPTY;
         }
 
-        final String strippedValue = value.strip().replace("%", "");
+        final String strippedValue = value.strip().replace("%", "").replace("°C", "");
         if (StringUtils.isNumeric(strippedValue)) {
             return new Measurement(Float.valueOf(strippedValue));
         }

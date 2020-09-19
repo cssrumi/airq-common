@@ -18,4 +18,14 @@ public class Prediction {
         this.config = config;
         this.stationId = stationId;
     }
+
+    @Override
+    public String toString() {
+        return "Prediction{" +
+                "timestamp=" + timestamp +
+                ", value=" + value +
+                ", config=" + config +
+                ", stationId=" + stationId +
+                '}';
+    }
 }

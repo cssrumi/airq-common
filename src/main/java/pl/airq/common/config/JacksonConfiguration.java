@@ -1,14 +1,21 @@
 package pl.airq.common.config;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.quarkus.jackson.ObjectMapperCustomizer;
 import java.time.OffsetDateTime;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Singleton;
+import pl.airq.common.serialization.MeasurementDeserializer;
+import pl.airq.common.serialization.MeasurementSerializer;
+import pl.airq.common.serialization.StationIdSerializer;
+import pl.airq.common.serialization.UnixTimestampDeserializer;
 import pl.airq.common.vo.Measurement;
+import pl.airq.common.vo.StationId;
 
-@Singleton
+@ApplicationScoped
 public class JacksonConfiguration implements ObjectMapperCustomizer {
 
     public void customize(ObjectMapper mapper) {
@@ -17,7 +24,11 @@ public class JacksonConfiguration implements ObjectMapperCustomizer {
 
         SimpleModule simpleModule = new SimpleModule();
         module.addDeserializer(Measurement.class, new MeasurementDeserializer());
+        module.addSerializer(StationId.class, new StationIdSerializer());
+        module.addSerializer(Measurement.class, new MeasurementSerializer());
 
         mapper.registerModules(module, simpleModule);
+
+        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
     }
 }

@@ -16,13 +16,15 @@ import pl.airq.common.vo.StationId;
 @ApplicationScoped
 public class AirqPhenotypeQueryPostgres implements AirqPhenotypeQuery {
 
+    private static final String LATEST_QUERY_PART = " ORDER BY TIMESTAMP DESC LIMIT 1";
     static final String FIND_ALL_QUERY = "SELECT * FROM AIRQ_PHENOTYPE";
     static final String FIND_ALL_BY_STATION_ID_QUERY = "SELECT * FROM AIRQ_PHENOTYPE WHERE AIRQ_PHENOTYPE.STATIONID = $1";
+    static final String FIND_LATEST_BY_STATION_ID_QUERY = FIND_ALL_BY_STATION_ID_QUERY + LATEST_QUERY_PART;
     private final PgPool client;
-    private final PostgresObjectFactory objectFactory;
+    private final DomainObjectMapper objectFactory;
 
     @Inject
-    public AirqPhenotypeQueryPostgres(PgPool client, PostgresObjectFactory objectFactory) {
+    public AirqPhenotypeQueryPostgres(PgPool client, DomainObjectMapper objectFactory) {
         this.client = client;
         this.objectFactory = objectFactory;
     }
@@ -39,6 +41,14 @@ public class AirqPhenotypeQueryPostgres implements AirqPhenotypeQuery {
         return client.preparedQuery(FIND_ALL_BY_STATION_ID_QUERY)
                      .execute(Tuple.of(stationId.getId()))
                      .map(this::parse);
+    }
+
+    @Override
+    public Uni<AirqPhenotype> findLatestByStationId(StationId stationId) {
+        return client.preparedQuery(FIND_LATEST_BY_STATION_ID_QUERY)
+                     .execute(Tuple.of(stationId.getId()))
+                     .map(this::parse)
+                     .map(set -> set.stream().findFirst().orElse(null));
     }
 
     private Set<AirqPhenotype> parse(RowSet<Row> pgRowSet) {

@@ -1,8 +1,8 @@
-package pl.airq.common.domain.process.event;
+package pl.airq.common.process.event;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import java.time.OffsetDateTime;
-import pl.airq.common.domain.process.Payload;
+import pl.airq.common.process.Payload;
 
 @RegisterForReflection
 public abstract class AppEvent<P extends Payload> implements Event {

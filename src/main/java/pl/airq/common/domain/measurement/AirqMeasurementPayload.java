@@ -1,7 +1,7 @@
-package pl.airq.common.domain.event;
+package pl.airq.common.domain.measurement;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
-import pl.airq.common.domain.process.Payload;
+import pl.airq.common.process.Payload;
 import pl.airq.common.vo.Measurement;
 import pl.airq.common.vo.StationId;
 import pl.airq.common.vo.StationLocation;

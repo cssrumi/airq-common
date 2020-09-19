@@ -1,10 +1,9 @@
-package pl.airq.common.domain.process.command;
+package pl.airq.common.process.command;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import java.time.OffsetDateTime;
-import pl.airq.common.domain.process.Payload;
-import pl.airq.common.domain.process.event.AirqEvent;
-import pl.airq.common.domain.process.event.AppEvent;
+import pl.airq.common.process.Payload;
+import pl.airq.common.process.event.AppEvent;
 
 @RegisterForReflection
 public abstract class AppCommand<P extends Payload, R> extends AppEvent<P> {

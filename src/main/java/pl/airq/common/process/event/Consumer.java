@@ -1,4 +1,4 @@
-package pl.airq.common.domain.process.event;
+package pl.airq.common.process.event;
 
 import io.smallrye.mutiny.Uni;
 

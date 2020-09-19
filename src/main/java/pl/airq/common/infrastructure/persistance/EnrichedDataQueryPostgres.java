@@ -17,8 +17,10 @@ import pl.airq.common.vo.StationId;
 @ApplicationScoped
 public class EnrichedDataQueryPostgres implements EnrichedDataQuery {
 
+    private static final String LATEST_QUERY_PART = " ORDER BY TIMESTAMP DESC LIMIT 1";
     static final String FIND_ALL_QUERY = "SELECT * FROM ENRICHED_DATA";
     static final String FIND_ALL_BY_STATION_QUERY = "SELECT * FROM ENRICHED_DATA WHERE ENRICHED_DATA.STATION = $1";
+    static final String FIND_LATEST_BY_STATION_QUERY = FIND_ALL_BY_STATION_QUERY + LATEST_QUERY_PART;
     static final String FIND_ALL_COORDS_QUERY = "SELECT * FROM ENRICHED_DATA WHERE ENRICHED_DATA.LON = $1 AND ENRICHED_DATA.LAT = $2";
     static final String FIND_BY_STATION_AND_TIMESTAMP = "SELECT * FROM ENRICHED_DATA WHERE ENRICHED_DATA.STATION = $1 AND ENRICHED_DATA.TIMESTAMP = $2";
     private final PgPool client;
@@ -40,6 +42,14 @@ public class EnrichedDataQueryPostgres implements EnrichedDataQuery {
         return client.preparedQuery(FIND_ALL_BY_STATION_QUERY)
                      .execute(Tuple.of(name))
                      .map(this::parse);
+    }
+
+    @Override
+    public Uni<EnrichedData> findLatestByStation(String name) {
+        return client.preparedQuery(FIND_LATEST_BY_STATION_QUERY)
+                .execute(Tuple.of(name))
+                .map(this::parse)
+                .map(set -> set.stream().findFirst().orElse(null));
     }
 
     @Override

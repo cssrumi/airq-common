@@ -1,4 +1,4 @@
-package pl.airq.common.config;
+package pl.airq.common.serialization;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -20,9 +20,9 @@ public class MeasurementDeserializer extends JsonDeserializer<Measurement> {
 
         switch (token) {
             case VALUE_NUMBER_FLOAT:
-                return Measurement.from((Float) jp.getNumberValue());
+                return Measurement.from(jp.getFloatValue());
             case VALUE_NUMBER_INT:
-                return Measurement.fromInteger((Integer) jp.getNumberValue());
+                return Measurement.fromInteger(jp.getIntValue());
             case VALUE_STRING:
                 return Measurement.fromString(jp.getText());
             case VALUE_NULL:

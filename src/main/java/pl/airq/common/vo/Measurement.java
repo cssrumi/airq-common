@@ -3,6 +3,7 @@ package pl.airq.common.vo;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import java.util.Objects;
 import org.apache.commons.lang3.StringUtils;
 
 @RegisterForReflection
@@ -50,6 +51,23 @@ public class Measurement {
         }
 
         return EMPTY;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Measurement that = (Measurement) o;
+        return Objects.equals(value, that.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
     }
 
     @Override

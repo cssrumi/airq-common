@@ -1,0 +1,20 @@
+package pl.airq.common.domain.exception;
+
+import javax.ws.rs.core.Response;
+
+public class ProcessingException extends DomainException {
+
+    private static final long serialVersionUID = -2847524176799851118L;
+    public static final Response.Status DEFAULT_STATUS = Response.Status.INTERNAL_SERVER_ERROR;
+
+    public ProcessingException() {
+    }
+
+    public ProcessingException(String message) {
+        super(message, DEFAULT_STATUS);
+    }
+
+    public ProcessingException(String message, Throwable cause) {
+        super(message, DEFAULT_STATUS, cause);
+    }
+}

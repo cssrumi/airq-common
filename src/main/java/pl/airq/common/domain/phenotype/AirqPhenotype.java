@@ -5,6 +5,7 @@ import java.time.OffsetDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import pl.airq.common.domain.prediction.PredictionConfig;
 import pl.airq.common.vo.StationId;
 
 @RegisterForReflection
@@ -14,11 +15,11 @@ public class AirqPhenotype {
     public final StationId stationId;
     public final List<String> fields;
     public final List<Float> values;
-    public final Prediction prediction;
+    public final PredictionConfig prediction;
     public final Double fitness;
 
     public AirqPhenotype(OffsetDateTime timestamp, StationId stationId, List<String> fields, List<Float> values,
-                         Prediction prediction, Double fitness) {
+                         PredictionConfig prediction, Double fitness) {
         this.timestamp = timestamp;
         this.stationId = stationId;
         this.fields = fields;

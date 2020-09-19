@@ -1,8 +1,9 @@
-package pl.airq.common.domain.process;
+package pl.airq.common.process;
 
 import io.smallrye.mutiny.Uni;
-import java.util.Objects;
 import java.util.function.Supplier;
+
+import static pl.airq.common.process.SneakyThrow.sneakyThrow;
 
 public final class Try<R> {
 
@@ -24,7 +25,7 @@ public final class Try<R> {
     }
 
     public static <T> Uni<Try<T>> from(Uni<T> uni) {
-        return uni.onItem().apply(e -> of(() -> e))
+        return uni.onItem().transform(e -> of(() -> e))
                   .onFailure().recoverWithItem(Try::from);
     }
 
@@ -50,11 +51,5 @@ public final class Try<R> {
         }
 
         return new Try<T>(response, throwable);
-    }
-
-    private static <E extends Throwable> void sneakyThrow(Throwable e) throws E {
-        if (Objects.nonNull(e)) {
-            throw (E) e;
-        }
     }
 }

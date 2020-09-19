@@ -11,6 +11,8 @@ public interface EnrichedDataQuery {
 
     Uni<Set<EnrichedData>> findAllByStation(String name);
 
+    Uni<EnrichedData> findLatestByStation(String name);
+
     Uni<Set<EnrichedData>> findAllByStationId(StationId stationId);
 
     Uni<Set<EnrichedData>> findAllByCoords(Float lon, Float lat);

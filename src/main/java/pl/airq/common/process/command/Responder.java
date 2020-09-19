@@ -1,7 +1,7 @@
-package pl.airq.common.domain.process.command;
+package pl.airq.common.process.command;
 
 import io.smallrye.mutiny.Uni;
-import pl.airq.common.domain.process.Try;
+import pl.airq.common.process.Try;
 
 public interface Responder<C extends AppCommand<?, R>, R> {
 

@@ -28,6 +28,23 @@ public class StationId {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        StationId stationId = (StationId) o;
+        return Objects.equals(id, stationId.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
     public String toString() {
         return "StationId{" +
                 "id='" + id + '\'' +

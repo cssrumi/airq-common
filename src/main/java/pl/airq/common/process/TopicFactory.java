@@ -1,7 +1,7 @@
-package pl.airq.common.domain.process;
+package pl.airq.common.process;
 
 import com.google.common.base.CaseFormat;
-import pl.airq.common.domain.process.event.Event;
+import pl.airq.common.process.event.Event;
 
 public class TopicFactory {
 

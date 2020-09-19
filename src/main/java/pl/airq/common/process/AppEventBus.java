@@ -1,15 +1,20 @@
-package pl.airq.common.domain.process;
+package pl.airq.common.process;
 
 import io.smallrye.mutiny.Uni;
 import io.vertx.mutiny.core.eventbus.EventBus;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
-import pl.airq.common.domain.process.command.AppCommand;
-import pl.airq.common.domain.process.event.AppEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import pl.airq.common.process.command.AppCommand;
+import pl.airq.common.process.event.AirqEvent;
+import pl.airq.common.process.event.AppEvent;
 
-@Dependent
+@ApplicationScoped
 public class AppEventBus {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(AppEventBus.class);
     private final EventBus eventBus;
 
     @Inject
@@ -34,8 +39,18 @@ public class AppEventBus {
         publish(event.defaultTopic(), event);
     }
 
+    public <T extends AirqEvent<?>> void publish(T airqEvent) {
+        LOGGER.info("Publishing AirqEvent: {}", airqEvent.eventType());
+        eventBus.publish(airqEvent.eventType(), airqEvent);
+    }
+
     public <T extends AppEvent<?>> void sendAndForget(String topic, T event) {
         eventBus.sendAndForget(topic, event);
+    }
+
+    public <T extends AirqEvent<?>> void sendAndForget(T airqEvent) {
+        LOGGER.info("SendAndForget AirqEvent: {}", airqEvent.eventType());
+        eventBus.sendAndForget(airqEvent.eventType(), airqEvent);
     }
 
     public <T extends AppEvent<?>> void sendAndForget(T event) {

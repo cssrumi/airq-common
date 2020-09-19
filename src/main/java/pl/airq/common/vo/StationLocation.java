@@ -87,10 +87,28 @@ public class StationLocation {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        StationLocation that = (StationLocation) o;
+        return Objects.equals(lon, that.lon) &&
+                Objects.equals(lat, that.lat);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(lon, lat);
+    }
+
+    @Override
     public String toString() {
         return "StationLocation{" +
                 "longitude='" + lon + '\'' +
-                "latitude='" + lat + '\'' +
+                ", latitude='" + lat + '\'' +
                 '}';
     }
 }

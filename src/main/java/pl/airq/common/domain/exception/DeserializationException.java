@@ -8,7 +8,7 @@ public class DeserializationException extends DomainException {
     static final String DESERIALIZATION_MISSING_FIELD_TEMPLATE = "Field \"%s\" is missing. Deserialization failed.";
     static final String DESERIALIZATION_MESSAGE_TEMPLATE = "Unable to deserialize object: %s";
     public static final String DEFAULT_MESSAGE = "Unable to deserialize object.";
-    public static final Response.Status DEFAULT_STATUS = Response.Status.INTERNAL_SERVER_ERROR;
+    public static final Response.Status DEFAULT_STATUS = Response.Status.BAD_REQUEST;
 
     public DeserializationException(String message) {
         super(message);

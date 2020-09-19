@@ -5,7 +5,7 @@ import javax.ws.rs.core.Response;
 public class ProcessingException extends DomainException {
 
     private static final long serialVersionUID = -2847524176799851118L;
-    public static final Response.Status DEFAULT_STATUS = Response.Status.INTERNAL_SERVER_ERROR;
+    public static final Response.Status DEFAULT_STATUS = Response.Status.BAD_REQUEST;
     public static final String DEFAULT_MESSAGE = "Processing error occurred.";
 
     public ProcessingException() {

@@ -15,7 +15,7 @@ public class FailurePayload implements Payload {
     @Override
     public String toString() {
         return "FailurePayload{" +
-                "throwable=" + throwable.getMessage() +
+                "throwable=" + throwable +
                 '}';
     }
 }

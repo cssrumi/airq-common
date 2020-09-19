@@ -7,7 +7,7 @@ public class SerializationException extends DomainException {
     private static final long serialVersionUID = -2922863246624460871L;
     static final String SERIALIZATION_MESSAGE_TEMPLATE = "Unable to serialize object: %s";
     public static final String DEFAULT_MESSAGE = "Unable to serialize object.";
-    public static final Response.Status DEFAULT_STATUS = Response.Status.INTERNAL_SERVER_ERROR;
+    public static final Response.Status DEFAULT_STATUS = Response.Status.BAD_REQUEST;
 
     public SerializationException(String message) {
         super(message, DEFAULT_STATUS);

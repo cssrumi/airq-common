@@ -51,7 +51,7 @@ public class DomainObjectMapper {
         final String stationid = row.getString("stationid");
         final PredictionConfig config;
         try {
-            config = mapper.readValue(row.getString("prediction"), PredictionConfig.class);
+            config = mapper.readValue(row.getString("config"), PredictionConfig.class);
         } catch (JsonProcessingException e) {
             LOGGER.error("Unable to create Prediction.");
             return Optional.empty();

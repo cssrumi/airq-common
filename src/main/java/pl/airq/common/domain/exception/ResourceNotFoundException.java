@@ -9,16 +9,25 @@ public class ResourceNotFoundException extends DomainException {
     public static final String DEFAULT_MESSAGE = "Resource not found.";
     public static final Response.Status STATUS = Response.Status.NOT_FOUND;
 
+    public final Class<?> missingResourceClass;
+
     public ResourceNotFoundException() {
         super(DEFAULT_MESSAGE, STATUS);
+        this.missingResourceClass = null;
+    }
+
+    public ResourceNotFoundException(Class<?> clazz) {
+        super(String.format(RESOURCE_NOT_FOUND_TEMPLATE, clazz.getSimpleName()), STATUS);
+        this.missingResourceClass = clazz;
     }
 
     public ResourceNotFoundException(String message) {
         super(message, STATUS);
+        this.missingResourceClass = null;
     }
 
-    public static ResourceNotFoundException fromResource(Class clazz) {
-        return new ResourceNotFoundException(String.format(RESOURCE_NOT_FOUND_TEMPLATE, clazz.getSimpleName()));
+    public static ResourceNotFoundException fromResource(Class<?> clazz) {
+        return new ResourceNotFoundException(clazz);
     }
 
     public static ResourceNotFoundException fromResource(String resource) {

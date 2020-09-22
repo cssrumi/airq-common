@@ -1,5 +1,7 @@
 package pl.airq.common.domain.prediction;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import java.time.OffsetDateTime;
 import pl.airq.common.vo.StationId;
@@ -12,7 +14,11 @@ public class Prediction {
     public final PredictionConfig config;
     public final StationId stationId;
 
-    public Prediction(OffsetDateTime timestamp, Double value, PredictionConfig config, StationId stationId) {
+    @JsonCreator
+    public Prediction(@JsonProperty("timestamp") OffsetDateTime timestamp,
+                      @JsonProperty("value") Double value,
+                      @JsonProperty("config") PredictionConfig config,
+                      @JsonProperty("stationId") StationId stationId) {
         this.timestamp = timestamp;
         this.value = value;
         this.config = config;

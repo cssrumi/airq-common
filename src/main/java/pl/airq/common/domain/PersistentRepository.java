@@ -6,6 +6,8 @@ public interface PersistentRepository<T> {
 
     Uni<Boolean> save(T data);
 
-    Uni<Boolean> upsert(T data);
+    default Uni<Boolean> upsert(T data) {
+        return save(data);
+    }
 
 }

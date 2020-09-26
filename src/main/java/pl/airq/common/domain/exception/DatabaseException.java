@@ -9,6 +9,10 @@ public class DatabaseException extends DomainException {
         super(DEFAULT_MESSAGE);
     }
 
+    public DatabaseException(String message) {
+        super(message);
+    }
+
     public DatabaseException(Throwable throwable) {
         super(DEFAULT_MESSAGE, throwable);
     }

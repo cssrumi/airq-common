@@ -10,7 +10,7 @@ public class DomainExceptionHandler implements ExceptionMapper<DomainException> 
 
     @Override
     public Response toResponse(DomainException e) {
-        return Response.fromResponse(e.getResponse())
+        return Response.status(e.getStatus())
                        .entity(e.getMessage())
                        .build();
     }

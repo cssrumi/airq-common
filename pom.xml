@@ -24,6 +24,7 @@
     </properties>
 
     <dependencies>
+        <!--quarkus-->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy</artifactId>
@@ -70,6 +71,7 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
+        <!--external-->
         <dependency>
             <groupId>org.reflections</groupId>
             <artifactId>reflections</artifactId>

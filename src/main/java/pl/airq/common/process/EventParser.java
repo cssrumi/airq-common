@@ -26,7 +26,7 @@ public class EventParser {
     private final Map<String, Class<? extends AirqEvent>> domainEvents;
 
     @Inject
-    EventParser(ObjectMapper mapper) {
+    public EventParser(ObjectMapper mapper) {
         this.mapper = mapper;
         this.domainEvents = findDomainEvents();
     }

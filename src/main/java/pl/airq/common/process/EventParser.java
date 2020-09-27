@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import org.apache.commons.lang3.StringUtils;
 import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,6 +53,10 @@ public class EventParser {
     }
 
     public AirqEvent deserializeDomainEvent(String rawEvent) {
+        if (StringUtils.isEmpty(rawEvent)) {
+            throw new DeserializationException("Event was empty");
+        }
+
         try {
             JsonNode jsonNode = mapper.readTree(rawEvent);
             final String eventType = Optional.ofNullable(jsonNode)

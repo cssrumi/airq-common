@@ -3,14 +3,12 @@ package pl.airq.common.process;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 import javax.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
 import org.reflections.Reflections;
@@ -42,9 +40,13 @@ public class EventParser {
         this.mapper = mapper;
     }
 
-    public EventParser addEvents(Set<Class<? extends AirqEvent>> events) {
+    public EventParser registerEvents(Set<Class<? extends AirqEvent>> events) {
         domainEventsMap.putAll(createMap(events));
         return this;
+    }
+
+    public Try<String> tryParse(Event event) {
+        return Try.of(() -> parse(event));
     }
 
     public String parse(Event event) {
@@ -58,6 +60,10 @@ public class EventParser {
         }
     }
 
+    public <T> Try<T> tryParse(String rawEvent, Class<T> eventClass) {
+        return Try.of(() -> parse(rawEvent, eventClass));
+    }
+
     public <T> T parse(String rawEvent, Class<T> eventClass) {
         try {
             return mapper.readValue(rawEvent, eventClass);
@@ -65,6 +71,10 @@ public class EventParser {
             LOGGER.error("Error occurred while deserializing {} class from: {}", eventClass.getSimpleName(), rawEvent);
             throw new DeserializationException(e);
         }
+    }
+
+    public Try<AirqEvent> tryDeserializeDomainEvent(String rawEvent) {
+        return Try.of(() -> deserializeDomainEvent(rawEvent));
     }
 
     public AirqEvent deserializeDomainEvent(String rawEvent) {
@@ -87,7 +97,7 @@ public class EventParser {
         }
     }
 
-    public Set<Class<? extends AirqEvent>> handledEvents() {
+    public Set<Class<? extends AirqEvent>> registeredEvents() {
         return new HashSet<>(this.domainEventsMap.values());
     }
 

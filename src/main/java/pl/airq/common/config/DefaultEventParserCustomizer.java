@@ -8,6 +8,6 @@ class DefaultEventParserCustomizer implements EventParserCustomizer {
 
     @Override
     public void customize(EventParser parser) {
-        parser.addEvents(EventParser.DEFAULT_DOMAIN_EVENTS);
+        parser.registerEvents(EventParser.DEFAULT_DOMAIN_EVENTS);
     }
 }

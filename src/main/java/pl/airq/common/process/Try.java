@@ -1,6 +1,8 @@
 package pl.airq.common.process;
 
 import io.smallrye.mutiny.Uni;
+import java.util.Optional;
+import java.util.concurrent.Callable;
 import java.util.function.Supplier;
 
 import static pl.airq.common.process.SneakyThrow.sneakyThrow;
@@ -18,6 +20,22 @@ public final class Try<R> {
     public R get() {
         sneakyThrow(error);
         return value;
+    }
+
+    public R orElse(R value) {
+        return error == null ? this.value : value;
+    }
+
+    public R orElseGet(Supplier<R> supplier) {
+        return error == null ? value : supplier.get();
+    }
+
+    public Optional<R> optional() {
+        return Optional.ofNullable(get());
+    }
+
+    public Optional<R> suppressed() {
+        return error == null ? Optional.ofNullable(value) : Optional.empty();
     }
 
     public Throwable error() {

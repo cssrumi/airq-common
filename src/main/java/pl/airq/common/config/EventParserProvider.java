@@ -27,7 +27,7 @@ class EventParserProvider {
         }
         LOGGER.info("{} has been configured for: {}",
                 EventParser.class.getSimpleName(),
-                eventParser.handledEvents().stream().map(Class::getSimpleName).collect(toList()));
+                eventParser.registeredEvents().stream().map(Class::getSimpleName).collect(toList()));
 
         return eventParser;
     }

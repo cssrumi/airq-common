@@ -24,13 +24,13 @@ public class UnixTimestampDeserializer extends JsonDeserializer<OffsetDateTime> 
             case VALUE_NUMBER_FLOAT:
                 return OffsetDateTime.ofInstant(Instant.ofEpochSecond(Double.valueOf(jp.getDoubleValue()).longValue()), ZoneOffset.UTC);
             case VALUE_NUMBER_INT:
-                return OffsetDateTime.ofInstant(Instant.ofEpochSecond(jp.getIntValue()), ZoneOffset.UTC);
+                return OffsetDateTime.ofInstant(Instant.ofEpochSecond(jp.getIntValue()), ZoneOffset.systemDefault());
             case VALUE_NULL:
                 return null;
             case VALUE_STRING:
                 final String timestamp = jp.getText().trim();
                 if (StringUtils.isNumeric(timestamp)) {
-                    return OffsetDateTime.ofInstant(Instant.ofEpochSecond(Long.parseLong(timestamp)), ZoneOffset.UTC);
+                    return OffsetDateTime.ofInstant(Instant.ofEpochSecond(Long.parseLong(timestamp)), ZoneOffset.systemDefault());
                 }
             default:
                 LOGGER.warn("Unable to deserialize timestamp: {}", jp.getText());

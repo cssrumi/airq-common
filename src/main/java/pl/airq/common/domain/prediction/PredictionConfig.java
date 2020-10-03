@@ -40,4 +40,13 @@ public class PredictionConfig {
     public int hashCode() {
         return Objects.hash(timeframe, timeUnit, field);
     }
+
+    @Override
+    public String toString() {
+        return "PredictionConfig{" +
+                "timeframe=" + timeframe +
+                ", timeUnit=" + timeUnit +
+                ", field='" + field + '\'' +
+                '}';
+    }
 }

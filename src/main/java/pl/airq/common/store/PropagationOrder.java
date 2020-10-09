@@ -10,7 +10,7 @@ public enum PropagationOrder {
     DISORDERED, TO_LOWER, TO_UPPER;
 
     <K, V> List<StoreLayer<K, V>> prepare(List<StoreLayer<K, V>> layers) {
-        return this == TO_LOWER ? Lists.reverse(layers) : layers;
+        return this == TO_LOWER ? layers : Lists.reverse(layers);
     }
 
     <K, V, R> Multi<R> flat(MultiFlatten<StoreLayer<K, V>, R> flatten) {

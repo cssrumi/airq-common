@@ -24,15 +24,28 @@ public abstract class PersistentRepositoryPostgres<T> implements PersistentRepos
                 .invoke(result -> postProcessAction(result, data));
     }
 
+    @Override
+    public Uni<Boolean> upsert(T data) {
+        return client.preparedQuery(upsertQuery())
+                .execute(prepareTuple(data))
+                .invoke(this::postUpsertAction)
+                .onItem().transform(this::intoBoolean)
+                .invoke(result -> postProcessAction(result, data));
+    }
+
     protected boolean intoBoolean(RowSet<Row> saveResult) {
         return saveResult.rowCount() != 0;
     }
 
     protected abstract String insertQuery();
 
+    protected abstract String upsertQuery();
+
     protected abstract Tuple prepareTuple(T data);
 
     protected abstract void postSaveAction(RowSet<Row> saveResult);
+
+    protected abstract void postUpsertAction(RowSet<Row> upsertResult);
 
     protected abstract void postProcessAction(Boolean result, T data);
 }

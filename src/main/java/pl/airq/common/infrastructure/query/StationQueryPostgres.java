@@ -1,18 +1,14 @@
-package pl.airq.common.infrastructure.persistance;
+package pl.airq.common.infrastructure.query;
 
 import io.smallrye.mutiny.Uni;
 import io.vertx.mutiny.pgclient.PgPool;
-import io.vertx.mutiny.sqlclient.Row;
-import io.vertx.mutiny.sqlclient.RowIterator;
-import io.vertx.mutiny.sqlclient.RowSet;
 import io.vertx.mutiny.sqlclient.Tuple;
-import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import pl.airq.common.domain.station.Station;
 import pl.airq.common.domain.station.StationQuery;
+import pl.airq.common.infrastructure.persistance.SqlLike;
 import pl.airq.common.vo.StationId;
 
 @ApplicationScoped
@@ -32,39 +28,20 @@ public class StationQueryPostgres implements StationQuery {
     public Uni<Set<Station>> findAll() {
         return client.query(FIND_ALL_QUERY)
                      .execute()
-                     .map(this::parse);
+                     .map(result -> DBParser.parseSet(result, Station::from));
     }
 
     @Override
     public Uni<Station> findById(StationId id) {
         return client.preparedQuery(FIND_BY_ID_QUERY)
-                     .execute(Tuple.of(id.getId()))
-                     .map(this::parseOne);
+                     .execute(Tuple.of(id.value()))
+                     .map(result -> DBParser.parseOne(result, Station::from));
     }
 
     @Override
     public Uni<Set<Station>> findByName(String name) {
         return client.preparedQuery(FIND_BY_NAME_QUERY)
                      .execute(Tuple.of(SqlLike.inAnyPosition(name)))
-                     .map(this::parse);
-    }
-
-    private Set<Station> parse(RowSet<Row> rows) {
-        Set<Station> stations = new HashSet<>(rows.size());
-        for (Row row : rows) {
-            stations.add(Station.from(row));
-        }
-
-        return stations;
-    }
-
-    private Station parseOne(RowSet<Row> rows) {
-        final RowIterator<Row> iterator = rows.iterator();
-        if (iterator.hasNext()) {
-            final Row row = iterator.next();
-            return Station.from(row);
-        }
-
-        return null;
+                     .map(result -> DBParser.parseSet(result, Station::from));
     }
 }

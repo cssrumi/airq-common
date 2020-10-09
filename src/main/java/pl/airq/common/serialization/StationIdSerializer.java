@@ -10,6 +10,6 @@ public class StationIdSerializer extends JsonSerializer<StationId> {
 
     @Override
     public void serialize(StationId stationId, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-        jsonGenerator.writeString(stationId.getId());
+        jsonGenerator.writeString(stationId.value());
     }
 }

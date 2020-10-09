@@ -1,17 +1,15 @@
-package pl.airq.common.infrastructure.persistance;
+package pl.airq.common.infrastructure.query;
 
 import io.smallrye.mutiny.Uni;
 import io.vertx.mutiny.pgclient.PgPool;
-import io.vertx.mutiny.sqlclient.Row;
-import io.vertx.mutiny.sqlclient.RowSet;
 import io.vertx.mutiny.sqlclient.Tuple;
-import java.util.HashSet;
 import java.util.Set;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import pl.airq.common.domain.prediction.Prediction;
 import pl.airq.common.domain.prediction.PredictionConfig;
 import pl.airq.common.domain.prediction.PredictionQuery;
+import pl.airq.common.infrastructure.persistance.DomainObjectMapper;
 import pl.airq.common.vo.StationId;
 
 @ApplicationScoped
@@ -37,45 +35,33 @@ public class PredictionQueryPostgres implements PredictionQuery {
     public Uni<Prediction> findLatest(StationId stationId) {
         return client.preparedQuery(FIND_LATEST_QUERY)
                      .execute(findLatestTuple(stationId))
-                     .map(this::parse)
-                     .map(set -> set.stream().findFirst().orElse(null));
+                     .map(result -> DBParser.parseOptional(result, objectFactory::prediction));
     }
 
     @Override
     public Uni<Set<Prediction>> findAll(StationId stationId) {
         return client.preparedQuery(FIND_ALL_QUERY)
                      .execute(findAllTuple(stationId))
-                     .map(this::parse);
+                     .map(result -> DBParser.parseOptionalSet(result, objectFactory::prediction));
     }
 
     @Override
     public Uni<Prediction> findLatestWithPredictionConfig(StationId stationId, PredictionConfig config) {
         return client.preparedQuery(FIND_LATEST_WITH_PREDICTION_CONFIG_QUERY)
                      .execute(findLatestWithPredictionConfigTuple(stationId, config))
-                     .map(this::parse)
-                     .map(set -> set.stream().findFirst().orElse(null));
-    }
-
-    private Set<Prediction> parse(RowSet<Row> pgRowSet) {
-        Set<Prediction> predictions = new HashSet<>(pgRowSet.size());
-        for (Row row : pgRowSet) {
-            objectFactory.prediction(row)
-                         .ifPresent(predictions::add);
-        }
-
-        return predictions;
+                     .map(result -> DBParser.parseOptional(result, objectFactory::prediction));
     }
 
     private Tuple findAllTuple(StationId stationId) {
-        return Tuple.of(stationId.getId());
+        return Tuple.of(stationId.value());
     }
 
     private Tuple findLatestTuple(StationId stationId) {
-        return Tuple.of(stationId.getId());
+        return Tuple.of(stationId.value());
     }
 
     private Tuple findLatestWithPredictionConfigTuple(StationId stationId, PredictionConfig config) {
-        return Tuple.of(stationId.getId())
+        return Tuple.of(stationId.value())
                     .addLong(config.timeframe)
                     .addString(config.timeUnit.name())
                     .addString(config.field);

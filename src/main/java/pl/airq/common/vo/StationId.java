@@ -1,9 +1,7 @@
 package pl.airq.common.vo;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.quarkus.runtime.annotations.RegisterForReflection;
-import io.quarkus.runtime.util.StringUtil;
 import java.util.Objects;
 import org.apache.commons.lang3.StringUtils;
 
@@ -12,14 +10,14 @@ public class StationId {
 
     public static final StationId EMPTY = new StationId("");
 
-    private final String id;
+    private final String value;
 
-    private StationId(String id) {
-        this.id = id;
+    private StationId(String value) {
+        this.value = value;
     }
 
-    public String getId() {
-        return id;
+    public String value() {
+        return value;
     }
 
     @JsonCreator
@@ -36,18 +34,18 @@ public class StationId {
             return false;
         }
         StationId stationId = (StationId) o;
-        return Objects.equals(id, stationId.id);
+        return Objects.equals(value, stationId.value);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(value);
     }
 
     @Override
     public String toString() {
         return "StationId{" +
-                "id='" + id + '\'' +
+                "value='" + value + '\'' +
                 '}';
     }
 

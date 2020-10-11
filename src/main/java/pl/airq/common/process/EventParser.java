@@ -52,7 +52,7 @@ public class EventParser {
     public String parse(Event event) {
         try {
             final String rawEvent = mapper.writeValueAsString(event);
-            LOGGER.info(String.format("RawEvent: %s", rawEvent));
+            LOGGER.debug(String.format("RawEvent: %s", rawEvent));
             return rawEvent;
         } catch (JsonProcessingException e) {
             LOGGER.error("Error occurred mapping {}: {}", event.getClass().getSimpleName(), event.toString(), e);

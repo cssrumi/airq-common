@@ -7,7 +7,7 @@ import java.util.concurrent.ExecutorService;
 import pl.airq.common.store.layer.FallbackLayer;
 import pl.airq.common.store.layer.StoreLayer;
 
-public class FallbackStore <V, K> extends AbstractStore<K, V> {
+public class FallbackStore<V, K> extends AbstractStore<K, V> {
 
     protected final FallbackLayer<K, V> fallbackLayer;
 

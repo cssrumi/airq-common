@@ -6,15 +6,22 @@ import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import java.time.Duration;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import javax.validation.constraints.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.airq.common.store.layer.StoreLayer;
 
 abstract class AbstractStore<K, V> implements Store<K, V> {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractStore.class);
     protected final List<StoreLayer<K, V>> layers;
     protected final ExecutorService executor;
 
@@ -31,13 +38,65 @@ abstract class AbstractStore<K, V> implements Store<K, V> {
                     .onItem().transformToUni(layer -> layer.get(key).map(Optional::ofNullable))
                     .concatenate().filter(Optional::isPresent).toUni()
                     .onItem().transform(Optional::get)
-                    .onItem().ifNotNull().invoke(value -> upsert(key, value));
+                    .onItem().ifNotNull().invokeUni(value -> upsert(key, value));
+    }
+
+    @Override
+    public Uni<Set<V>> getAll() {
+        return firstLayer().getAll();
+    }
+
+    @Override
+    public Uni<Set<V>> getAll(Predicate<V> valuePredicate) {
+        return firstLayer().getAll(valuePredicate);
+    }
+
+    @Override
+    public Uni<Map<K, V>> getMap() {
+        return firstLayer().getMap();
+    }
+
+    @Override
+    public Uni<Map<K, V>> getMap(Predicate<K> keyPredicate) {
+        return firstLayer().getMap(keyPredicate);
     }
 
     @Override
     public Uni<V> pull(K key) {
         return pullLayer().get(key)
-                          .onItem().invoke(value -> upsert(key, value));
+                          .emitOn(executor)
+                          .invokeUni(value -> upsert(key, value));
+    }
+
+    @Override
+    public Uni<Set<V>> pullAll(Predicate<V> valuePredicate, Function<V, K> keyFactory) {
+        return pullLayer().getAll(valuePredicate)
+                          .emitOn(executor)
+                          .invokeUni(vs ->
+                                  Multi.createFrom().iterable(vs)
+                                       .invokeUni(v -> upsert(keyFactory.apply(v), v))
+                                       .collectItems().with(Collectors.counting())
+                                       .invoke(count -> LOGGER.info("{} items pulled from pull layer.", count)));
+    }
+
+    @Override
+    public Uni<Map<K, V>> pullMap() {
+        return pullLayer().getMap()
+                          .emitOn(executor)
+                          .invokeUni(map -> Multi.createFrom().iterable(map.entrySet())
+                                                 .invokeUni(entry -> upsert(entry.getKey(), entry.getValue()))
+                                                 .collectItems().with(Collectors.counting())
+                                                 .invoke(count -> LOGGER.info("{} items pulled from pull layer.", count)));
+    }
+
+    @Override
+    public Uni<Map<K, V>> pullMap(Predicate<K> keyPredicate) {
+        return pullLayer().getMap(keyPredicate)
+                          .emitOn(executor)
+                          .invokeUni(map -> Multi.createFrom().iterable(map.entrySet())
+                                                 .invokeUni(entry -> upsert(entry.getKey(), entry.getValue()))
+                                                 .collectItems().with(Collectors.counting())
+                                                 .invoke(count -> LOGGER.info("{} items pulled from pull layer.", count)));
     }
 
     @Override
@@ -58,6 +117,10 @@ abstract class AbstractStore<K, V> implements Store<K, V> {
     public <T> T intoBlocking(Uni<T> uni, Duration maxAwaitTime) {
         return uni.runSubscriptionOn(executor)
                   .await().atMost(maxAwaitTime);
+    }
+
+    protected StoreLayer<K, V> firstLayer() {
+        return layers.get(0);
     }
 
     protected StoreLayer<K, V> lastLayer() {

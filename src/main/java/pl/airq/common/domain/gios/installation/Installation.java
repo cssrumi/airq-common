@@ -3,6 +3,7 @@ package pl.airq.common.domain.gios.installation;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import io.vertx.mutiny.sqlclient.Row;
 import java.time.OffsetDateTime;
+import java.util.Objects;
 
 @RegisterForReflection
 public class Installation {
@@ -30,5 +31,28 @@ public class Installation {
                 row.getOffsetDateTime("timestamp"), row.getFloat("value"),
                 row.getFloat("y"), row.getFloat("x"),
                 row.getString("code"));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Installation that = (Installation) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(timestamp, that.timestamp) &&
+                Objects.equals(value, that.value) &&
+                Objects.equals(lon, that.lon) &&
+                Objects.equals(lat, that.lat) &&
+                Objects.equals(code, that.code);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, timestamp, value, lon, lat, code);
     }
 }

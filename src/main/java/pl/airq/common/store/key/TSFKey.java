@@ -52,7 +52,7 @@ public class TSFKey implements Key {
     public static TSFKey from(String value) {
         Preconditions.checkArgument(value != null,
                 String.format(EMPTY_ARG_MESSAGE_TEMPLATE, TSFKey.class.getSimpleName(), "value"));
-        final String[] split = value.split("-");
+        final String[] split = value.split(DEFAULT_DELIMITER);
         Preconditions.checkArgument(split.length == 3,
                 String.format("%s value is invalid: %s", TSFKey.class.getSimpleName(), value));
         OffsetDateTime timestamp = OffsetDateTime.ofInstant(Instant.ofEpochSecond(Long.parseLong(split[0])), ZoneOffset.systemDefault());

@@ -37,8 +37,8 @@ abstract class AbstractStore<K, V> implements Store<K, V> {
         return Multi.createFrom().iterable(layers)
                     .onItem().transformToUni(layer -> layer.get(key).map(Optional::ofNullable))
                     .concatenate().filter(Optional::isPresent).toUni()
-                    .onItem().transform(Optional::get)
-                    .onItem().ifNotNull().invokeUni(value -> upsert(key, value));
+                    .onItem().ifNotNull().transform(Optional::get)
+                    .onItem().invokeUni(value -> upsert(key, value));
     }
 
     @Override

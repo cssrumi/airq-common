@@ -1,4 +1,4 @@
-package pl.airq.common.infrastructure.rest;
+package pl.airq.common.infrastructure.jaxrs;
 
 import io.vertx.core.http.HttpServerRequest;
 import javax.ws.rs.container.ContainerRequestContext;

@@ -25,8 +25,19 @@ public class GiosMeasurement {
 
     public GiosMeasurement merge(Installation installation) {
         final Float newPm10 = getPm10(installation);
-        final Float newPm25 = getPm10(installation);
+        final Float newPm25 = getPm25(installation);
         return new GiosMeasurement(timestamp, station, newPm10 != null ? newPm10 : pm10, newPm25 != null ? newPm25 : pm25);
+    }
+
+    public GiosMeasurement remove(Installation installation) {
+        switch (installation.code.toLowerCase()) {
+            case "pm10":
+                return new GiosMeasurement(timestamp, station, null, pm25);
+            case "pm25":
+                return new GiosMeasurement(timestamp, station, pm10, null);
+            default:
+                return this;
+        }
     }
 
     public static GiosMeasurement from(Installation installation) {

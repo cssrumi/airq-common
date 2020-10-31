@@ -2,7 +2,6 @@ package pl.airq.common.process;
 
 import io.smallrye.mutiny.Uni;
 import java.util.Optional;
-import java.util.concurrent.Callable;
 import java.util.function.Supplier;
 
 import static pl.airq.common.process.SneakyThrow.sneakyThrow;

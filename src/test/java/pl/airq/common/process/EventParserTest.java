@@ -4,8 +4,8 @@ import io.quarkus.test.junit.QuarkusTest;
 import java.time.OffsetDateTime;
 import javax.inject.Inject;
 import org.junit.jupiter.api.Test;
-import pl.airq.common.domain.measurement.AirqMeasurementEvent;
-import pl.airq.common.domain.measurement.AirqMeasurementPayload;
+import pl.airq.common.process.ctx.internal.AirqMeasurementEvent;
+import pl.airq.common.process.ctx.internal.AirqMeasurementPayload;
 import pl.airq.common.process.event.AirqEvent;
 import pl.airq.common.vo.Measurement;
 

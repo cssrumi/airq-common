@@ -47,5 +47,5 @@ public abstract class PersistentRepositoryPostgres<T> implements PersistentRepos
 
     protected abstract void postUpsertAction(RowSet<Row> upsertResult);
 
-    protected abstract void postProcessAction(Boolean result, T data);
+    protected abstract void postProcessAction(Boolean isSuccess, T data);
 }

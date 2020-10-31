@@ -1,24 +1,24 @@
-package pl.airq.common.domain.gios;
+package pl.airq.common.process.ctx.gios.aggragation;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.quarkus.runtime.annotations.RegisterForReflection;
-import pl.airq.common.domain.gios.installation.Installation;
+import pl.airq.common.domain.gios.GiosMeasurement;
 import pl.airq.common.process.Payload;
 
 @RegisterForReflection
 public class GiosMeasurementEventPayload implements Payload {
 
-    public final Installation installation;
+    public final GiosMeasurement measurement;
 
     @JsonCreator
-    public GiosMeasurementEventPayload(Installation installation) {
-        this.installation = installation;
+    public GiosMeasurementEventPayload(GiosMeasurement measurement) {
+        this.measurement = measurement;
     }
 
     @Override
     public String toString() {
         return "GiosMeasurementPayload{" +
-                "installation=" + installation +
+                "measurement=" + measurement +
                 '}';
     }
 }

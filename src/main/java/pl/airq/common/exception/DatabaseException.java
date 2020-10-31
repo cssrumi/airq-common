@@ -1,4 +1,4 @@
-package pl.airq.common.domain.exception;
+package pl.airq.common.exception;
 
 public class DatabaseException extends DomainException {
 

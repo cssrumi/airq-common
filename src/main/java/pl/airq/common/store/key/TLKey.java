@@ -5,7 +5,7 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.Objects;
 import java.util.Optional;
-import pl.airq.common.domain.exception.ProcessingException;
+import pl.airq.common.exception.ProcessingException;
 import pl.airq.common.vo.StationLocation;
 
 // Timestamp Location Key

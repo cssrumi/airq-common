@@ -1,4 +1,4 @@
-package pl.airq.common.domain.gios;
+package pl.airq.common.process.ctx.gios.aggragation;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -7,17 +7,17 @@ import java.time.OffsetDateTime;
 import pl.airq.common.process.event.AirqEvent;
 
 @RegisterForReflection
-public class GiosMeasurementUpdatedEvent extends AirqEvent<GiosMeasurementEventPayload> {
+public class GiosMeasurementDeletedEvent extends AirqEvent<GiosMeasurementEventPayload> {
 
     @JsonCreator
-    public GiosMeasurementUpdatedEvent(@JsonProperty("timestamp") OffsetDateTime timestamp,
+    public GiosMeasurementDeletedEvent(@JsonProperty("timestamp") OffsetDateTime timestamp,
                                        @JsonProperty("payload") GiosMeasurementEventPayload payload) {
-        super(timestamp, payload, GiosMeasurementUpdatedEvent.class);
+        super(timestamp, payload, GiosMeasurementDeletedEvent.class);
     }
 
     @Override
     public String toString() {
-        return "GiosMeasurementUpdatedEvent{" +
+        return "GiosMeasurementDeletedEvent{" +
                 "timestamp=" + timestamp +
                 ", payload=" + payload +
                 '}';

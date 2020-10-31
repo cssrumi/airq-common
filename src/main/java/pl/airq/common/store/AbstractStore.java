@@ -133,7 +133,7 @@ abstract class AbstractStore<K, V> implements Store<K, V> {
 
     protected <T> Multi<T> propagateAll(Function<StoreLayer<K, V>, Uni<T>> function, PropagationOrder order) {
         return order.flat(Multi.createFrom().iterable(order.prepare(layers))
-                               .onItem().transformToUni(function));
+                               .onItem().transformToUni(layer -> function.apply(layer)));
     }
 
     protected abstract StoreLayer<K, V> pullLayer();

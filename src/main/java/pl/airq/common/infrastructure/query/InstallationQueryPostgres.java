@@ -6,8 +6,8 @@ import io.vertx.mutiny.sqlclient.Tuple;
 import java.util.Set;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import pl.airq.common.domain.gios.installation.Installation;
-import pl.airq.common.domain.gios.installation.InstallationQuery;
+import pl.airq.common.domain.gios.Installation;
+import pl.airq.common.domain.gios.InstallationQuery;
 import pl.airq.common.store.key.TSFKey;
 
 @ApplicationScoped

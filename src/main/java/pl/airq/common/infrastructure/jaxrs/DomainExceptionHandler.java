@@ -3,7 +3,7 @@ package pl.airq.common.infrastructure.jaxrs;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
-import pl.airq.common.domain.exception.DomainException;
+import pl.airq.common.exception.DomainException;
 
 @Provider
 public class DomainExceptionHandler implements ExceptionMapper<DomainException> {

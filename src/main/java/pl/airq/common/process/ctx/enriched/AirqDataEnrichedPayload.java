@@ -1,7 +1,8 @@
-package pl.airq.common.domain.enriched;
+package pl.airq.common.process.ctx.enriched;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import pl.airq.common.domain.enriched.EnrichedData;
 import pl.airq.common.process.Payload;
 
 @RegisterForReflection

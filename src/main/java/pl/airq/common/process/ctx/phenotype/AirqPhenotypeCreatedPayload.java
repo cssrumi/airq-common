@@ -1,7 +1,8 @@
-package pl.airq.common.domain.phenotype;
+package pl.airq.common.process.ctx.phenotype;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import pl.airq.common.domain.phenotype.AirqPhenotype;
 import pl.airq.common.process.Payload;
 
 @RegisterForReflection

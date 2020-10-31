@@ -1,4 +1,4 @@
-package pl.airq.common.domain.measurement;
+package pl.airq.common.domain.internal;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import java.time.OffsetDateTime;

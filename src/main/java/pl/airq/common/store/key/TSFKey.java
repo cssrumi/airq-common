@@ -6,7 +6,7 @@ import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.Objects;
-import pl.airq.common.domain.gios.installation.Installation;
+import pl.airq.common.domain.gios.Installation;
 import pl.airq.common.domain.station.Station;
 
 // Timestamp Station Field Key
@@ -50,7 +50,7 @@ public class TSFKey implements Key {
     }
 
     public static TSFKey from(String value) {
-        Preconditions.checkArgument(value != null,
+        Preconditions.checkNotNull(value,
                 String.format(EMPTY_ARG_MESSAGE_TEMPLATE, TSFKey.class.getSimpleName(), "value"));
         final String[] split = value.split(DEFAULT_DELIMITER);
         Preconditions.checkArgument(split.length == 3,
@@ -63,27 +63,27 @@ public class TSFKey implements Key {
     }
 
     public static TSFKey from(OffsetDateTime timestamp, String station, String field) {
-        Preconditions.checkArgument(timestamp != null,
+        Preconditions.checkNotNull(timestamp,
                 String.format(EMPTY_ARG_MESSAGE_TEMPLATE, TSFKey.class.getSimpleName(), "timestamp"));
-        Preconditions.checkArgument(station != null,
+        Preconditions.checkNotNull(station,
                 String.format(EMPTY_ARG_MESSAGE_TEMPLATE, TSFKey.class.getSimpleName(), "station"));
-        Preconditions.checkArgument(field != null,
+        Preconditions.checkNotNull(field,
                 String.format(EMPTY_ARG_MESSAGE_TEMPLATE, TSFKey.class.getSimpleName(), "field"));
         return new TSFKey(timestamp, station, field);
     }
 
     public static TSFKey from(OffsetDateTime timestamp, Station station, String field) {
-        Preconditions.checkArgument(timestamp != null,
+        Preconditions.checkNotNull(timestamp,
                 String.format(EMPTY_ARG_MESSAGE_TEMPLATE, TSFKey.class.getSimpleName(), "timestamp"));
-        Preconditions.checkArgument(station != null,
+        Preconditions.checkNotNull(station,
                 String.format(EMPTY_ARG_MESSAGE_TEMPLATE, TSFKey.class.getSimpleName(), "station"));
-        Preconditions.checkArgument(field != null,
+        Preconditions.checkNotNull(field,
                 String.format(EMPTY_ARG_MESSAGE_TEMPLATE, TSFKey.class.getSimpleName(), "field"));
         return new TSFKey(timestamp, station.id.value(), field);
     }
 
     public static TSFKey from(Installation installation) {
-        Preconditions.checkArgument(installation != null,
+        Preconditions.checkNotNull(installation,
                 String.format("Can not create {} from null Installation", TSFKey.class.getSimpleName()));
         return new TSFKey(installation.timestamp, installation.name, installation.code.toLowerCase());
     }

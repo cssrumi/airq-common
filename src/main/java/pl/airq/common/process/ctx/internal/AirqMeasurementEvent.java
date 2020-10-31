@@ -1,4 +1,4 @@
-package pl.airq.common.domain.measurement;
+package pl.airq.common.process.ctx.internal;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

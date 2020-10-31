@@ -14,12 +14,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.airq.common.domain.enriched.AirqDataEnrichedEvent;
-import pl.airq.common.domain.exception.DeserializationException;
-import pl.airq.common.domain.exception.ProcessingException;
-import pl.airq.common.domain.exception.SerializationException;
-import pl.airq.common.domain.measurement.AirqMeasurementEvent;
-import pl.airq.common.domain.phenotype.AirqPhenotypeCreatedEvent;
+import pl.airq.common.process.ctx.enriched.AirqDataEnrichedEvent;
+import pl.airq.common.exception.DeserializationException;
+import pl.airq.common.exception.ProcessingException;
+import pl.airq.common.exception.SerializationException;
+import pl.airq.common.process.ctx.internal.AirqMeasurementEvent;
+import pl.airq.common.process.ctx.phenotype.AirqPhenotypeCreatedEvent;
 import pl.airq.common.process.event.AirqEvent;
 import pl.airq.common.process.event.Event;
 
@@ -103,7 +103,7 @@ public class EventParser {
 
     @Deprecated
     public static Set<Class<? extends AirqEvent>> findDomainEventsUsingReflection() {
-        return findDomainEventsUsingReflection("pl.airq.common.domain");
+        return findDomainEventsUsingReflection("pl.airq.common.process.ctx");
     }
 
     @Deprecated

@@ -1,4 +1,4 @@
-package pl.airq.common.domain.measurement;
+package pl.airq.common.process.ctx.internal;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import pl.airq.common.process.Payload;

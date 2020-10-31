@@ -1,7 +1,6 @@
-package pl.airq.common.domain.exception;
+package pl.airq.common.exception;
 
 import java.io.Serializable;
-import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.core.Response;
 
 public class DomainException extends RuntimeException implements Serializable {

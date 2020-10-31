@@ -1,8 +1,6 @@
-package pl.airq.common.domain.gios.installation;
+package pl.airq.common.domain.gios;
 
 import io.smallrye.mutiny.Uni;
-import java.time.OffsetDateTime;
-import java.util.Collection;
 import java.util.Set;
 import pl.airq.common.store.key.TSFKey;
 

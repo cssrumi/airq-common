@@ -1,9 +1,12 @@
-package pl.airq.common.domain.gios.installation;
+package pl.airq.common.domain.gios;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import io.vertx.mutiny.sqlclient.Row;
 import java.time.OffsetDateTime;
 import java.util.Objects;
+import pl.airq.common.domain.station.Station;
+import pl.airq.common.vo.StationId;
+import pl.airq.common.vo.StationLocation;
 
 @RegisterForReflection
 public class Installation {
@@ -24,6 +27,10 @@ public class Installation {
         this.lon = lon;
         this.lat = lat;
         this.code = code;
+    }
+
+    public Station intoStation() {
+        return new Station(StationId.from(name), StationLocation.from(lon, lat));
     }
 
     public static Installation from(Row row) {

@@ -1,0 +1,54 @@
+package pl.airq.common.domain.gios;
+
+import com.google.common.base.Preconditions;
+import io.quarkus.runtime.annotations.RegisterForReflection;
+import java.time.OffsetDateTime;
+import java.util.Arrays;
+import java.util.Iterator;
+import org.apache.commons.lang3.StringUtils;
+import pl.airq.common.domain.station.Station;
+
+@RegisterForReflection
+public class GiosMeasurement {
+
+    public final OffsetDateTime timestamp;
+    public final Station station;
+    public final Float pm10;
+    public final Float pm25;
+
+    public GiosMeasurement(OffsetDateTime timestamp, Station station, Float pm10, Float pm25) {
+        this.timestamp = timestamp;
+        this.station = station;
+        this.pm10 = pm10;
+        this.pm25 = pm25;
+    }
+
+    public GiosMeasurement merge(Installation installation) {
+        final Float newPm10 = getPm10(installation);
+        final Float newPm25 = getPm10(installation);
+        return new GiosMeasurement(timestamp, station, newPm10 != null ? newPm10 : pm10, newPm25 != null ? newPm25 : pm25);
+    }
+
+    public static GiosMeasurement from(Installation installation) {
+        return new GiosMeasurement(installation.timestamp, installation.intoStation(), getPm10(installation), getPm25(installation));
+    }
+
+    public static GiosMeasurement from(Installation... installations) {
+        Preconditions.checkNotNull(installations);
+        Preconditions.checkArgument(installations.length > 0);
+        final Iterator<Installation> iterator = Arrays.stream(installations).iterator();
+        GiosMeasurement giosMeasurement = from(iterator.next());
+        while (iterator.hasNext()) {
+            giosMeasurement = giosMeasurement.merge(iterator.next());
+        }
+        return giosMeasurement;
+    }
+
+    private static Float getPm10(Installation installation) {
+        return "PM10".equals(StringUtils.upperCase(installation.code)) ? installation.value : null;
+    }
+
+    private static Float getPm25(Installation installation) {
+        return "PM25".equals(StringUtils.upperCase(installation.code)) ? installation.value : null;
+    }
+}

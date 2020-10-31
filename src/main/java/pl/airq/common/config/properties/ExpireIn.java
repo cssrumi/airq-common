@@ -1,5 +1,6 @@
 package pl.airq.common.config.properties;
 
+import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -10,6 +11,10 @@ public class ExpireIn {
     private ChronoUnit timeUnit;
     @Min(1)
     private long in;
+
+    public Duration duration() {
+        return Duration.of(in, timeUnit);
+    }
 
     public ChronoUnit getTimeUnit() {
         return timeUnit;

@@ -5,6 +5,7 @@ import io.quarkus.runtime.annotations.RegisterForReflection;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.Objects;
 import org.apache.commons.lang3.StringUtils;
 import pl.airq.common.domain.station.Station;
 
@@ -61,5 +62,25 @@ public class GiosMeasurement {
 
     private static Float getPm25(Installation installation) {
         return "PM25".equals(StringUtils.upperCase(installation.code)) ? installation.value : null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        GiosMeasurement that = (GiosMeasurement) o;
+        return Objects.equals(timestamp, that.timestamp) &&
+                Objects.equals(station, that.station) &&
+                Objects.equals(pm10, that.pm10) &&
+                Objects.equals(pm25, that.pm25);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(timestamp, station, pm10, pm25);
     }
 }

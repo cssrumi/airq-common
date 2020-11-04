@@ -19,35 +19,37 @@ public abstract class PersistentRepositoryPostgres<T> implements PersistentRepos
     }
 
     @Override
-    public Uni<Boolean> save(T data) {
+    public Uni<Result> save(T data) {
         return client.preparedQuery(insertQuery())
                      .execute(insertTuple(data))
-                     .onItem().transform(this::intoBoolean)
-                     .invoke(result -> postProcessAction(Action.SAVE, result, data));
+                     .onItem().transform(dbResult -> intoResult(dbResult, Result.SAVED))
+                     .invoke(result -> postProcessAction(result, data));
     }
 
     @Override
-    public Uni<Boolean> upsert(T data) {
+    public Uni<Result> upsert(T data) {
         return SqlClientHelper.inTransactionUni(client, tx -> {
             Uni<Boolean> isAlreadyExist = tx.preparedQuery(isAlreadyExistQuery())
                                             .execute(isAlreadyExistTuple(data))
                                             .map(result -> DBParser.parseOne(result, this::isAlreadyExistParser));
-            Uni<RowSet<Row>> insert = tx.preparedQuery(insertQuery())
-                                        .execute(insertTuple(data));
-            Uni<RowSet<Row>> update = tx.preparedQuery(updateQuery())
-                                        .execute(updateTuple(data));
+            Uni<Result> insert = tx.preparedQuery(insertQuery())
+                                   .execute(insertTuple(data))
+                                   .map(dbResult -> intoResult(dbResult, Result.SAVED));
+            Uni<Result> update = tx.preparedQuery(updateQuery())
+                                   .execute(updateTuple(data))
+                                   .map(dbResult -> intoResult(dbResult, Result.UPSERTED));
+
             return isAlreadyExist.onItem().transformToUni(isExist -> BooleanUtils.isNotTrue(isExist) ? insert : update);
         })
-                              .onItem().transform(this::intoBoolean)
-                              .call(result -> postProcessAction(Action.UPSERT, result, data));
+                              .call(result -> postProcessAction(result, data));
     }
 
-    protected boolean intoBoolean(RowSet<Row> saveResult) {
-        return saveResult.rowCount() != 0;
+    protected Result intoResult(RowSet<Row> dbResult, Result expected) {
+        return dbResult.rowCount() != 0 ? expected : Result.FAILED;
     }
 
     protected Boolean isAlreadyExistParser(Row row) {
-        return row.getBoolean(1);
+        return row.getBoolean(0);
     }
 
     protected abstract String insertQuery();
@@ -62,9 +64,7 @@ public abstract class PersistentRepositoryPostgres<T> implements PersistentRepos
 
     protected abstract Tuple isAlreadyExistTuple(T data);
 
-    protected abstract Uni<Void> postProcessAction(Action action, Boolean isSuccess, T data);
+    protected abstract Uni<Void> postProcessAction(Result result, T data);
 
-    public enum Action {
-        SAVE, UPSERT;
-    }
+
 }

@@ -4,6 +4,7 @@ import io.quarkus.runtime.annotations.RegisterForReflection;
 import io.vertx.mutiny.sqlclient.Row;
 import java.time.OffsetDateTime;
 import java.util.Objects;
+import java.util.StringJoiner;
 import pl.airq.common.domain.station.Station;
 import pl.airq.common.vo.StationId;
 import pl.airq.common.vo.StationLocation;
@@ -61,5 +62,18 @@ public class Installation {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, timestamp, value, lon, lat, code);
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", Installation.class.getSimpleName() + "[", "]")
+                .add("id=" + id)
+                .add("name='" + name + "'")
+                .add("timestamp=" + timestamp)
+                .add("value=" + value)
+                .add("lon=" + lon)
+                .add("lat=" + lat)
+                .add("code='" + code + "'")
+                .toString();
     }
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import java.time.OffsetDateTime;
+import java.util.StringJoiner;
 import pl.airq.common.vo.StationId;
 
 @RegisterForReflection
@@ -27,11 +28,11 @@ public class Prediction {
 
     @Override
     public String toString() {
-        return "Prediction{" +
-                "timestamp=" + timestamp +
-                ", value=" + value +
-                ", config=" + config +
-                ", stationId=" + stationId +
-                '}';
+        return new StringJoiner(", ", Prediction.class.getSimpleName() + "[", "]")
+                .add("timestamp=" + timestamp)
+                .add("value=" + value)
+                .add("config=" + config)
+                .add("stationId=" + stationId)
+                .toString();
     }
 }

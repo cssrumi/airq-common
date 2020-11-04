@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
+import java.util.StringJoiner;
 
 @RegisterForReflection
 public class PredictionConfig {
@@ -43,10 +44,10 @@ public class PredictionConfig {
 
     @Override
     public String toString() {
-        return "PredictionConfig{" +
-                "timeframe=" + timeframe +
-                ", timeUnit=" + timeUnit +
-                ", field='" + field + '\'' +
-                '}';
+        return new StringJoiner(", ", PredictionConfig.class.getSimpleName() + "[", "]")
+                .add("timeframe=" + timeframe)
+                .add("timeUnit=" + timeUnit)
+                .add("field='" + field + "'")
+                .toString();
     }
 }

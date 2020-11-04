@@ -8,12 +8,12 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 
-class DBParser {
+public class DBParser {
 
     private DBParser() {
     }
 
-    static <T> Set<T> parseSet(RowSet<Row> pgRowSet, Function<Row, T> parseFunction) {
+    public static <T> Set<T> parseSet(RowSet<Row> pgRowSet, Function<Row, T> parseFunction) {
         Set<T> set = new HashSet<>(pgRowSet.size());
         for (Row row : pgRowSet) {
             set.add(parseFunction.apply(row));
@@ -22,7 +22,7 @@ class DBParser {
         return set;
     }
 
-    static <T> Set<T> parseOptionalSet(RowSet<Row> pgRowSet, Function<Row, Optional<T>> parseOptionalFunction) {
+    public static <T> Set<T> parseOptionalSet(RowSet<Row> pgRowSet, Function<Row, Optional<T>> parseOptionalFunction) {
         Set<T> set = new HashSet<>(pgRowSet.size());
         for (Row row : pgRowSet) {
             parseOptionalFunction.apply(row)
@@ -32,7 +32,7 @@ class DBParser {
         return set;
     }
 
-    static <T> T parseOne(RowSet<Row> pgRowSet, Function<Row, T> parseFunction) {
+    public static <T> T parseOne(RowSet<Row> pgRowSet, Function<Row, T> parseFunction) {
         final RowIterator<Row> iterator = pgRowSet.iterator();
         if (iterator.hasNext()) {
             final Row row = iterator.next();
@@ -42,7 +42,7 @@ class DBParser {
         return null;
     }
 
-    static <T> T parseOptional(RowSet<Row> pgRowSet, Function<Row, Optional<T>> parseFunction) {
+    public static <T> T parseOptional(RowSet<Row> pgRowSet, Function<Row, Optional<T>> parseFunction) {
         final RowIterator<Row> iterator = pgRowSet.iterator();
         if (iterator.hasNext()) {
             final Row row = iterator.next();

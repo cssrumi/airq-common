@@ -13,7 +13,7 @@ public class MutinyUtils {
         return Multi.createFrom().empty();
     }
 
-    public static Uni<Void> uniFromRunnable(Runnable runnable) {
+    public static Uni<Void> fromRunnable(Runnable runnable) {
         return Uni.createFrom().voidItem().invoke(ignore -> runnable.run());
     }
 }

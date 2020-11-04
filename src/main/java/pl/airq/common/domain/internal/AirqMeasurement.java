@@ -2,6 +2,7 @@ package pl.airq.common.domain.internal;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import java.time.OffsetDateTime;
+import java.util.StringJoiner;
 import pl.airq.common.vo.Measurement;
 import pl.airq.common.vo.StationId;
 import pl.airq.common.vo.StationLocation;
@@ -30,14 +31,14 @@ public final class AirqMeasurement {
 
     @Override
     public String toString() {
-        return "AirqMeasurement{" +
-                "timestamp=" + timestamp +
-                ", temperature=" + temperature +
-                ", humidity=" + humidity +
-                ", pm10=" + pm10 +
-                ", pm25=" + pm25 +
-                ", stationId=" + stationId +
-                ", location=" + location +
-                '}';
+        return new StringJoiner(", ", AirqMeasurement.class.getSimpleName() + "[", "]")
+                .add("timestamp=" + timestamp)
+                .add("temperature=" + temperature)
+                .add("humidity=" + humidity)
+                .add("pm10=" + pm10)
+                .add("pm25=" + pm25)
+                .add("stationId=" + stationId)
+                .add("location=" + location)
+                .toString();
     }
 }

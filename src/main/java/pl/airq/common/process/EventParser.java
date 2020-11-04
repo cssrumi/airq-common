@@ -14,7 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.airq.common.process.ctx.enriched.AirqDataEnrichedEvent;
+import pl.airq.common.process.ctx.enriched.EnrichedDataCreatedEvent;
 import pl.airq.common.exception.DeserializationException;
 import pl.airq.common.exception.ProcessingException;
 import pl.airq.common.exception.SerializationException;
@@ -31,7 +31,7 @@ public class EventParser {
     private static final Logger LOGGER = LoggerFactory.getLogger(EventParser.class);
     private static final String EVENT_TYPE_FIELD = "eventType";
     public static final Set<Class<? extends AirqEvent>> DEFAULT_DOMAIN_EVENTS = Set
-            .of(AirqMeasurementEvent.class, AirqDataEnrichedEvent.class, AirqPhenotypeCreatedEvent.class);
+            .of(AirqMeasurementEvent.class, EnrichedDataCreatedEvent.class, AirqPhenotypeCreatedEvent.class);
     private final ObjectMapper mapper;
     private final Map<String, Class<? extends AirqEvent>> domainEventsMap = new HashMap<>();
 

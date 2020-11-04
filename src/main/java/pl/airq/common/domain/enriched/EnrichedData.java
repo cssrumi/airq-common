@@ -3,6 +3,8 @@ package pl.airq.common.domain.enriched;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import io.vertx.mutiny.sqlclient.Row;
 import java.time.OffsetDateTime;
+import java.util.StringJoiner;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import pl.airq.common.domain.DataProvider;
 import pl.airq.common.vo.StationId;
 
@@ -58,19 +60,17 @@ public final class EnrichedData {
 
     @Override
     public String toString() {
-        return "EnrichedData{" +
-                "timestamp=" + timestamp +
-                ", pm10=" + pm10 +
-                ", pm25=" + pm25 +
-                ", temp=" + temp +
-                ", wind=" + wind +
-                ", windDirection=" + windDirection +
-                ", humidity=" + humidity +
-                ", pressure=" + pressure +
-                ", lon=" + lon +
-                ", lat=" + lat +
-                ", provider=" + provider +
-                ", station='" + station + '\'' +
-                '}';
+        return new StringJoiner(", ", EnrichedData.class.getSimpleName() + "[", "]")
+                .add("timestamp=" + timestamp)
+                .add("pm10=" + pm10)
+                .add("pm25=" + pm25)
+                .add("temp=" + temp)
+                .add("wind=" + wind)
+                .add("windDirection=" + windDirection)
+                .add("humidity=" + humidity)
+                .add("pressure=" + pressure)
+                .add("provider=" + provider)
+                .add("station=" + station)
+                .toString();
     }
 }

@@ -5,6 +5,7 @@ import java.time.OffsetDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringJoiner;
 import pl.airq.common.domain.prediction.PredictionConfig;
 import pl.airq.common.vo.StationId;
 
@@ -39,9 +40,11 @@ public class AirqPhenotype {
 
     @Override
     public String toString() {
-        return "AirqPhenotype{" +
-                "map=" + fieldValueMap() +
-                ", fitness=" + fitness +
-                '}';
+        return new StringJoiner(", ", AirqPhenotype.class.getSimpleName() + "[", "]")
+                .add("timestamp=" + timestamp)
+                .add("stationId=" + stationId)
+                .add("map=" + fieldValueMap())
+                .add("fitness=" + fitness)
+                .toString();
     }
 }

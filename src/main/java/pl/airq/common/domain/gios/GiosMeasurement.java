@@ -6,7 +6,9 @@ import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Objects;
+import java.util.StringJoiner;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import pl.airq.common.domain.station.Station;
 
 @RegisterForReflection
@@ -82,5 +84,15 @@ public class GiosMeasurement {
     @Override
     public int hashCode() {
         return Objects.hash(timestamp, station, pm10, pm25);
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", GiosMeasurement.class.getSimpleName() + "[", "]")
+                .add("timestamp=" + timestamp)
+                .add("station=" + station)
+                .add("pm10=" + pm10)
+                .add("pm25=" + pm25)
+                .toString();
     }
 }

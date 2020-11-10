@@ -88,7 +88,11 @@ public class EventParser {
                                              .map(node -> node.get(EVENT_TYPE_FIELD))
                                              .map(JsonNode::textValue)
                                              .orElseThrow(() -> DeserializationException.missingField(EVENT_TYPE_FIELD));
-            final Class<?> clsType = domainEventsMap.get(eventType);
+            final Class<?> clsType = domainEventsMap.getOrDefault(eventType, AirqEvent.class);
+            if (clsType == AirqEvent.class) {
+                LOGGER.warn("Class not found for {}. Fallback with {}.class", eventType, AirqEvent.class.getSimpleName());
+            }
+
             final Object object = mapper.treeToValue(jsonNode, clsType);
             return (AirqEvent) object;
         } catch (JsonProcessingException | ProcessingException e) {

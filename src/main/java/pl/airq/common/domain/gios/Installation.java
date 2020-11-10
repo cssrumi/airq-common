@@ -52,7 +52,7 @@ public class Installation {
         Installation that = (Installation) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(name, that.name) &&
-                Objects.equals(timestamp, that.timestamp) &&
+                Objects.equals(timestamp.toEpochSecond(), that.timestamp.toEpochSecond()) &&
                 Objects.equals(value, that.value) &&
                 Objects.equals(lon, that.lon) &&
                 Objects.equals(lat, that.lat) &&

@@ -40,8 +40,7 @@ public abstract class PersistentRepositoryPostgres<T> implements PersistentRepos
                                    .map(dbResult -> intoResult(dbResult, Result.UPSERTED));
 
             return isAlreadyExist.onItem().transformToUni(isExist -> BooleanUtils.isNotTrue(isExist) ? insert : update);
-        })
-                              .call(result -> postProcessAction(result, data));
+        }).call(result -> postProcessAction(result, data));
     }
 
     protected Result intoResult(RowSet<Row> dbResult, Result expected) {
@@ -66,5 +65,8 @@ public abstract class PersistentRepositoryPostgres<T> implements PersistentRepos
 
     protected abstract Uni<Void> postProcessAction(Result result, T data);
 
-
+    public static class Default {
+        public static final String IS_ALREADY_EXIST_QUERY = "SELECT 1 WHERE 1 = $1";
+        public static final Tuple IS_ALREADY_EXIST_TUPLE = Tuple.of(0);
+    }
 }

@@ -66,7 +66,7 @@ public abstract class PersistentRepositoryPostgres<T> implements PersistentRepos
     protected abstract Uni<Void> postProcessAction(Result result, T data);
 
     public static class Default {
-        public static final String IS_ALREADY_EXIST_QUERY = "SELECT 1 WHERE 1 = $1";
-        public static final Tuple IS_ALREADY_EXIST_TUPLE = Tuple.of(0);
+        public static final String NEVER_EXIST_QUERY = "SELECT 1 WHERE 1 = $1";
+        public static final Tuple NEVER_EXIST_TUPLE = Tuple.of(0);
     }
 }

@@ -11,4 +11,6 @@ public interface AirqPhenotypeQuery {
     Uni<Set<AirqPhenotype>> findByStationId(StationId stationId);
 
     Uni<AirqPhenotype> findLatestByStationId(StationId stationId);
+
+    Uni<AirqPhenotype> findBestByStationId(StationId stationId);
 }

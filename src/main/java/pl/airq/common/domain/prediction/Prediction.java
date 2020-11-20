@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import java.time.OffsetDateTime;
+import java.util.Objects;
 import java.util.StringJoiner;
+import pl.airq.common.util.Timestamp;
 import pl.airq.common.vo.StationId;
 
 @RegisterForReflection
@@ -24,6 +26,26 @@ public class Prediction {
         this.value = value;
         this.config = config;
         this.stationId = stationId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Prediction that = (Prediction) o;
+        return Timestamp.isEqual(timestamp, that.timestamp) &&
+                Objects.equals(value, that.value) &&
+                Objects.equals(config, that.config) &&
+                Objects.equals(stationId, that.stationId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(timestamp, value, config, stationId);
     }
 
     @Override

@@ -5,8 +5,10 @@ import java.time.OffsetDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.StringJoiner;
 import pl.airq.common.domain.prediction.PredictionConfig;
+import pl.airq.common.util.Timestamp;
 import pl.airq.common.vo.StationId;
 
 @RegisterForReflection
@@ -36,6 +38,28 @@ public class AirqPhenotype {
         }
 
         return map;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        AirqPhenotype phenotype = (AirqPhenotype) o;
+        return Timestamp.isEqual(timestamp, phenotype.timestamp) &&
+                Objects.equals(stationId, phenotype.stationId) &&
+                Objects.equals(fields, phenotype.fields) &&
+                Objects.equals(values, phenotype.values) &&
+                Objects.equals(prediction, phenotype.prediction) &&
+                Objects.equals(fitness, phenotype.fitness);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(timestamp, stationId, fields, values, prediction, fitness);
     }
 
     @Override

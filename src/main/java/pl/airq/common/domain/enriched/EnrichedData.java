@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.StringJoiner;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import pl.airq.common.domain.DataProvider;
+import pl.airq.common.util.Timestamp;
 import pl.airq.common.vo.StationId;
 
 @RegisterForReflection
@@ -68,7 +69,7 @@ public final class EnrichedData {
             return false;
         }
         EnrichedData that = (EnrichedData) o;
-        return Objects.equals(timestamp, that.timestamp) &&
+        return Timestamp.isEqual(timestamp, that.timestamp) &&
                 Objects.equals(pm10, that.pm10) &&
                 Objects.equals(pm25, that.pm25) &&
                 Objects.equals(temp, that.temp) &&

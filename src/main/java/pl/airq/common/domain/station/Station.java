@@ -2,6 +2,7 @@ package pl.airq.common.domain.station;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import io.vertx.mutiny.sqlclient.Row;
+import java.util.Objects;
 import java.util.StringJoiner;
 import pl.airq.common.vo.StationId;
 import pl.airq.common.vo.StationLocation;
@@ -22,6 +23,24 @@ public class Station {
                 StationId.from(row.getString("station")),
                 StationLocation.from(row.getFloat("lon"), row.getFloat("lat"))
         );
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Station station = (Station) o;
+        return Objects.equals(id, station.id) &&
+                Objects.equals(location, station.location);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, location);
     }
 
     @Override

@@ -3,6 +3,7 @@ package pl.airq.common.domain.enriched;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import io.vertx.mutiny.sqlclient.Row;
 import java.time.OffsetDateTime;
+import java.util.Objects;
 import java.util.StringJoiner;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import pl.airq.common.domain.DataProvider;
@@ -56,6 +57,34 @@ public final class EnrichedData {
                 DataProvider.valueOf(row.getString("provider")),
                 StationId.from(row.getString("station"))
         );
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        EnrichedData that = (EnrichedData) o;
+        return Objects.equals(timestamp, that.timestamp) &&
+                Objects.equals(pm10, that.pm10) &&
+                Objects.equals(pm25, that.pm25) &&
+                Objects.equals(temp, that.temp) &&
+                Objects.equals(wind, that.wind) &&
+                Objects.equals(windDirection, that.windDirection) &&
+                Objects.equals(humidity, that.humidity) &&
+                Objects.equals(pressure, that.pressure) &&
+                Objects.equals(lon, that.lon) &&
+                Objects.equals(lat, that.lat) &&
+                provider == that.provider &&
+                Objects.equals(station, that.station);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(timestamp, pm10, pm25, temp, wind, windDirection, humidity, pressure, lon, lat, provider, station);
     }
 
     @Override

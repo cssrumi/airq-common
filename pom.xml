@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>pl.airq</groupId>
     <artifactId>common</artifactId>
-    <version>1.11-SNAPSHOT</version>
+    <version>1.11</version>
 
     <parent>
         <groupId>pl.airq</groupId>
@@ -15,7 +15,7 @@
         <developerConnection>scm:git:https://github.com/cssrumi/airq-common.git</developerConnection>
         <connection>scm:git:https://github.com/cssrumi/airq-common.git</connection>
         <url>https://github.com/cssrumi/airq-common.git</url>
-        <tag>HEAD</tag>
+        <tag>common-1.11</tag>
     </scm>
 
     <properties>

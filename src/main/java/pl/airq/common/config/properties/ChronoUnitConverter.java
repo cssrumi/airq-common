@@ -1,12 +1,13 @@
 package pl.airq.common.config.properties;
 
-import io.smallrye.config.common.AbstractConverter;
+import java.io.Serializable;
 import java.time.temporal.ChronoUnit;
-import javax.enterprise.context.ApplicationScoped;
 import org.apache.commons.lang3.StringUtils;
+import org.eclipse.microprofile.config.spi.Converter;
 
-@ApplicationScoped
-public class ChronoUnitConverter extends AbstractConverter<ChronoUnit> {
+public class ChronoUnitConverter implements Converter<ChronoUnit>, Serializable {
+
+    private static final long serialVersionUID = -2222282677326862952L;
 
     @Override
     public ChronoUnit convert(String s) {

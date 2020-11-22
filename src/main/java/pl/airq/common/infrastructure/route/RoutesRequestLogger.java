@@ -11,7 +11,7 @@ public class RoutesRequestLogger implements Handler<RoutingContext> {
 
     @Override
     public void handle(RoutingContext rc) {
-        LOGGER.info(String.format("Request path: %s, body: %s.", rc.normalisedPath(), rc.getBodyAsJson()));
+        LOGGER.info(String.format("Request path: %s, body: %s.", rc.normalisedPath(), rc.getBodyAsString()));
         rc.next();
     }
 

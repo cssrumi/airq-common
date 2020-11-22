@@ -37,6 +37,7 @@ public class GiosMeasurement {
             case "pm10":
                 return new GiosMeasurement(timestamp, station, null, pm25);
             case "pm2.5":
+            case "pm25":
                 return new GiosMeasurement(timestamp, station, pm10, null);
             default:
                 return this;
@@ -63,7 +64,11 @@ public class GiosMeasurement {
     }
 
     private static Float getPm25(Installation installation) {
-        return "PM2.5".equals(StringUtils.upperCase(installation.code)) ? installation.value : null;
+        return isPm25(installation.code) ? installation.value : null;
+    }
+
+    private static boolean isPm25(String code) {
+        return "PM2.5".equals(code) || "PM25".equals(code);
     }
 
     @Override

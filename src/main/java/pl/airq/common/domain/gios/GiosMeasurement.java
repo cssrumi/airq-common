@@ -36,7 +36,7 @@ public class GiosMeasurement {
         switch (installation.code.toLowerCase()) {
             case "pm10":
                 return new GiosMeasurement(timestamp, station, null, pm25);
-            case "pm25":
+            case "pm2.5":
                 return new GiosMeasurement(timestamp, station, pm10, null);
             default:
                 return this;

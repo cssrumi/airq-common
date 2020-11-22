@@ -8,7 +8,6 @@ import java.util.Iterator;
 import java.util.Objects;
 import java.util.StringJoiner;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 import pl.airq.common.domain.station.Station;
 import pl.airq.common.util.Timestamp;
 
@@ -64,7 +63,7 @@ public class GiosMeasurement {
     }
 
     private static Float getPm25(Installation installation) {
-        return "PM25".equals(StringUtils.upperCase(installation.code)) ? installation.value : null;
+        return "PM2.5".equals(StringUtils.upperCase(installation.code)) ? installation.value : null;
     }
 
     @Override

@@ -68,7 +68,8 @@ public class GiosMeasurement {
     }
 
     private static boolean isPm25(String code) {
-        return "PM2.5".equals(code) || "PM25".equals(code);
+        String upperCode = StringUtils.upperCase(code);
+        return "PM2.5".equals(upperCode) || "PM25".equals(upperCode);
     }
 
     @Override

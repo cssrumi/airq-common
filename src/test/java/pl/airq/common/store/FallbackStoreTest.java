@@ -28,7 +28,6 @@ class FallbackStoreTest {
 
     private FallbackStore<String, String> store;
 
-    @SuppressWarnings("unchecked")
     @BeforeEach
     void beforeEach() {
         initMocks(this);

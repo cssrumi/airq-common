@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import java.time.OffsetDateTime;
-import pl.airq.common.process.event.AirqEvent;
+import pl.airq.common.process.command.AirqCommand;
 
 @RegisterForReflection
-public class UpdateGiosMeasurement extends AirqEvent<UpdateGiosMeasurementPayload> {
+public class UpdateGiosMeasurement extends AirqCommand<UpdateGiosMeasurementPayload> {
 
     @JsonCreator
     public UpdateGiosMeasurement(@JsonProperty("timestamp") OffsetDateTime timestamp,

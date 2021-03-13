@@ -25,7 +25,11 @@ public class FallbackStore<V, K> extends AbstractStore<K, V> {
     @Override
     public Uni<V> get(K key) {
         return super.get(key)
-                    .onItem().ifNull().switchTo(fallbackLayer.get(key))
-                    .onItem().ifNotNull().invoke(value -> upsert(key, value));
+                    .onItem().ifNull().switchTo(() -> fallbackGet(key));
+    }
+
+    protected Uni<V> fallbackGet(K key) {
+        return fallbackLayer.get(key)
+                            .onItem().ifNotNull().call(value -> upsert(key, value));
     }
 }

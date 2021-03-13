@@ -38,7 +38,7 @@ abstract class AbstractStore<K, V> implements Store<K, V> {
                     .onItem().transformToUni(layer -> layer.get(key).map(Optional::ofNullable))
                     .concatenate().filter(Optional::isPresent).toUni()
                     .onItem().ifNotNull().transform(Optional::get)
-                    .onItem().invokeUni(value -> upsert(key, value));
+                    .onItem().call(value -> upsert(key, value));
     }
 
     @Override
@@ -65,16 +65,16 @@ abstract class AbstractStore<K, V> implements Store<K, V> {
     public Uni<V> pull(K key) {
         return pullLayer().get(key)
                           .emitOn(executor)
-                          .invokeUni(value -> upsert(key, value));
+                          .call(value -> upsert(key, value));
     }
 
     @Override
     public Uni<Set<V>> pullAll(Predicate<V> valuePredicate, Function<V, K> keyFactory) {
         return pullLayer().getAll(valuePredicate)
                           .emitOn(executor)
-                          .invokeUni(vs ->
+                          .call(vs ->
                                   Multi.createFrom().iterable(vs)
-                                       .invokeUni(v -> upsert(keyFactory.apply(v), v))
+                                       .call(v -> upsert(keyFactory.apply(v), v))
                                        .collectItems().with(Collectors.counting())
                                        .invoke(count -> LOGGER.info("{} items pulled from pull layer.", count)));
     }
@@ -83,20 +83,20 @@ abstract class AbstractStore<K, V> implements Store<K, V> {
     public Uni<Map<K, V>> pullMap() {
         return pullLayer().getMap()
                           .emitOn(executor)
-                          .invokeUni(map -> Multi.createFrom().iterable(map.entrySet())
-                                                 .invokeUni(entry -> upsert(entry.getKey(), entry.getValue()))
-                                                 .collectItems().with(Collectors.counting())
-                                                 .invoke(count -> LOGGER.info("{} items pulled from pull layer.", count)));
+                          .call(map -> Multi.createFrom().iterable(map.entrySet())
+                                            .call(entry -> upsert(entry.getKey(), entry.getValue()))
+                                            .collectItems().with(Collectors.counting())
+                                            .invoke(count -> LOGGER.info("{} items pulled from pull layer.", count)));
     }
 
     @Override
     public Uni<Map<K, V>> pullMap(Predicate<K> keyPredicate) {
         return pullLayer().getMap(keyPredicate)
                           .emitOn(executor)
-                          .invokeUni(map -> Multi.createFrom().iterable(map.entrySet())
-                                                 .invokeUni(entry -> upsert(entry.getKey(), entry.getValue()))
-                                                 .collectItems().with(Collectors.counting())
-                                                 .invoke(count -> LOGGER.info("{} items pulled from pull layer.", count)));
+                          .call(map -> Multi.createFrom().iterable(map.entrySet())
+                                            .call(entry -> upsert(entry.getKey(), entry.getValue()))
+                                            .collectItems().with(Collectors.counting())
+                                            .invoke(count -> LOGGER.info("{} items pulled from pull layer.", count)));
     }
 
     @Override

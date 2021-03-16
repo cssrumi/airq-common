@@ -7,11 +7,10 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.quarkus.jackson.ObjectMapperCustomizer;
 import java.time.OffsetDateTime;
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Singleton;
-import pl.airq.common.serialization.MeasurementDeserializer;
-import pl.airq.common.serialization.MeasurementSerializer;
-import pl.airq.common.serialization.StationIdSerializer;
-import pl.airq.common.serialization.UnixTimestampDeserializer;
+import pl.airq.common.infrastructure.rest.serialization.MeasurementDeserializer;
+import pl.airq.common.infrastructure.rest.serialization.MeasurementSerializer;
+import pl.airq.common.infrastructure.rest.serialization.StationIdSerializer;
+import pl.airq.common.infrastructure.rest.serialization.UnixTimestampDeserializer;
 import pl.airq.common.vo.Measurement;
 import pl.airq.common.vo.StationId;
 

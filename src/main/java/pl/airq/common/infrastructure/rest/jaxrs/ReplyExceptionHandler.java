@@ -1,4 +1,4 @@
-package pl.airq.common.infrastructure.jaxrs;
+package pl.airq.common.infrastructure.rest.jaxrs;
 
 import io.vertx.core.eventbus.ReplyException;
 import javax.ws.rs.core.Response;

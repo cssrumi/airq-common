@@ -1,4 +1,4 @@
-package pl.airq.common.kafka;
+package pl.airq.common.infrastructure.kafka;
 
 import org.apache.kafka.common.serialization.Serializer;
 import org.apache.kafka.common.serialization.StringSerializer;

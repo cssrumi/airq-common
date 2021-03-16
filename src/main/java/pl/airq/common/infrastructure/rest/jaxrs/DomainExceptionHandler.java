@@ -1,4 +1,4 @@
-package pl.airq.common.infrastructure.jaxrs;
+package pl.airq.common.infrastructure.rest.jaxrs;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;

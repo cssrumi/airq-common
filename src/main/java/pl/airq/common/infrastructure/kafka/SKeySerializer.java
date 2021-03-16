@@ -1,16 +1,16 @@
-package pl.airq.common.kafka;
+package pl.airq.common.infrastructure.kafka;
 
 import com.google.common.base.Preconditions;
 import org.apache.kafka.common.serialization.Serializer;
 import org.apache.kafka.common.serialization.StringSerializer;
-import pl.airq.common.store.key.TSKey;
+import pl.airq.common.store.key.SKey;
 
-public class TSKeySerializer implements Serializer<TSKey> {
+public class SKeySerializer implements Serializer<SKey> {
 
     private final StringSerializer stringSerializer = new StringSerializer();
 
     @Override
-    public byte[] serialize(String topic, TSKey data) {
+    public byte[] serialize(String topic, SKey data) {
         Preconditions.checkNotNull(data);
         return stringSerializer.serialize(topic, data.value());
     }

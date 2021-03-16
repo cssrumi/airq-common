@@ -1,4 +1,4 @@
-package pl.airq.common.serialization;
+package pl.airq.common.infrastructure.rest.serialization;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;

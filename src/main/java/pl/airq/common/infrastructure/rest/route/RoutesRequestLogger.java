@@ -1,4 +1,4 @@
-package pl.airq.common.infrastructure.route;
+package pl.airq.common.infrastructure.rest.route;
 
 import io.vertx.core.Handler;
 import io.vertx.ext.web.RoutingContext;

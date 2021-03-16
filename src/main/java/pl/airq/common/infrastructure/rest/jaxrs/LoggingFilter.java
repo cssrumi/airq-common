@@ -1,4 +1,4 @@
-package pl.airq.common.infrastructure.jaxrs;
+package pl.airq.common.infrastructure.rest.jaxrs;
 
 import io.vertx.core.http.HttpServerRequest;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -22,7 +22,6 @@ public class LoggingFilter implements ContainerRequestFilter {
 
     @Override
     public void filter(ContainerRequestContext context) {
-
         final String method = context.getMethod();
         final String path = info.getPath();
         final String address = request.remoteAddress().toString();

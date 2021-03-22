@@ -10,7 +10,7 @@ import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
 @ApplicationScoped
-class FailureConsumer {
+public class FailureConsumer {
 
     private final List<FailureHandler> handlers;
 
@@ -20,7 +20,7 @@ class FailureConsumer {
     }
 
     @ConsumeEvent(Failure.DEFAULT_FAILURE_TOPIC)
-    Uni<Void> consume(Failure failure) {
+    public Uni<Void> consume(Failure failure) {
         return Multi.createFrom().iterable(handlers)
                     .call(handler -> handler.handle(failure))
                     .onOverflow().buffer(5)

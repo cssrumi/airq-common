@@ -10,16 +10,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.airq.common.exception.DomainException;
 
-public class FailureHandler implements Handler<RoutingContext> {
+public final class FailureHandler implements Handler<RoutingContext> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FailureHandler.class);
+
+    private FailureHandler() {
+    }
 
     @Override
     public void handle(RoutingContext event) {
         Throwable failure = event.failure();
         if (failure instanceof DomainException) {
             DomainException domainException = (DomainException) failure;
-            int status = Optional.ofNullable(domainException.getStatus()).orElse(Response.Status.INTERNAL_SERVER_ERROR).getStatusCode();
+            int status = Optional.ofNullable(domainException.getStatus())
+                                 .orElse(Response.Status.INTERNAL_SERVER_ERROR).getStatusCode();
             String message = failure.getMessage();
 
             LOGGER.warn("Failure resolved with status: {}, message: {}", status, message);
@@ -30,5 +34,9 @@ public class FailureHandler implements Handler<RoutingContext> {
         }
 
         event.next();
+    }
+
+    public static FailureHandler create() {
+        return new FailureHandler();
     }
 }

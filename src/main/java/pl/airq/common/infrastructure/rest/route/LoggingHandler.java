@@ -8,10 +8,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LoggingHandler implements Handler<RoutingContext> {
+public final class LoggingHandler implements Handler<RoutingContext> {
 
     private static final String EMPTY = "EMPTY";
     private static final Logger LOGGER = LoggerFactory.getLogger(LoggingHandler.class);
+
+    private LoggingHandler() {
+    }
 
     @Override
     public void handle(RoutingContext rc) {

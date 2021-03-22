@@ -8,10 +8,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class RoutesRequestLogger implements Handler<RoutingContext> {
+public class LoggingHandler implements Handler<RoutingContext> {
 
     private static final String EMPTY = "EMPTY";
-    private static final Logger LOGGER = LoggerFactory.getLogger(RoutesRequestLogger.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoggingHandler.class);
 
     @Override
     public void handle(RoutingContext rc) {
@@ -30,7 +30,7 @@ public class RoutesRequestLogger implements Handler<RoutingContext> {
         rc.next();
     }
 
-    public static RoutesRequestLogger create() {
-        return new RoutesRequestLogger();
+    public static LoggingHandler create() {
+        return new LoggingHandler();
     }
 }

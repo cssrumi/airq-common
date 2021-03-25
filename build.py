@@ -6,7 +6,8 @@ NS = '{http://maven.apache.org/POM/4.0.0}'
 pom_tree = ET.parse('pom.xml')
 pom_root = pom_tree.getroot()
 version = pom_root.find(NS + 'version').text
-group_id = pom_root.find(NS + 'groupId').text
+raw_group_id = pom_root.find(NS + 'groupId')
+group_id = raw_group_id.text if raw_group_id else 'pl.airq'
 company = group_id.split('.')[-1]
 artifact_id = pom_root.find(NS + 'artifactId').text
 

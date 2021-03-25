@@ -9,7 +9,7 @@ import javax.inject.Inject;
 import pl.airq.common.domain.phenotype.AirqPhenotype;
 import pl.airq.common.domain.phenotype.AirqPhenotypeQuery;
 import pl.airq.common.infrastructure.persistance.DomainObjectMapper;
-import pl.airq.common.vo.StationId;
+import pl.airq.common.domain.vo.StationId;
 
 @ApplicationScoped
 public class AirqPhenotypeQueryPostgres implements AirqPhenotypeQuery {

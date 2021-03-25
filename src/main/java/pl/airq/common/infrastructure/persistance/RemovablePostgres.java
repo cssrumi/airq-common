@@ -6,7 +6,7 @@ import io.vertx.mutiny.sqlclient.Row;
 import io.vertx.mutiny.sqlclient.RowSet;
 import io.vertx.mutiny.sqlclient.Tuple;
 import pl.airq.common.domain.Removable;
-import pl.airq.common.store.key.Key;
+import pl.airq.common.infrastructure.store.key.Key;
 
 public abstract class RemovablePostgres<T, K extends Key> implements Removable<T, K> {
 

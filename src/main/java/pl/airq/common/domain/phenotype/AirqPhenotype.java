@@ -8,8 +8,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.StringJoiner;
 import pl.airq.common.domain.prediction.PredictionConfig;
-import pl.airq.common.util.Timestamp;
-import pl.airq.common.vo.StationId;
+import pl.airq.common.util.TimestampUtil;
+import pl.airq.common.domain.vo.StationId;
 
 @RegisterForReflection
 public class AirqPhenotype {
@@ -49,7 +49,7 @@ public class AirqPhenotype {
             return false;
         }
         AirqPhenotype phenotype = (AirqPhenotype) o;
-        return Timestamp.isEqual(timestamp, phenotype.timestamp) &&
+        return TimestampUtil.isEqual(timestamp, phenotype.timestamp) &&
                 Objects.equals(stationId, phenotype.stationId) &&
                 Objects.equals(fields, phenotype.fields) &&
                 Objects.equals(values, phenotype.values) &&

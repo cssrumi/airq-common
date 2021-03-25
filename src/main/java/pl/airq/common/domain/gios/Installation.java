@@ -6,9 +6,9 @@ import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.StringJoiner;
 import pl.airq.common.domain.station.Station;
-import pl.airq.common.util.Timestamp;
-import pl.airq.common.vo.StationId;
-import pl.airq.common.vo.StationLocation;
+import pl.airq.common.util.TimestampUtil;
+import pl.airq.common.domain.vo.StationId;
+import pl.airq.common.domain.vo.StationLocation;
 
 @RegisterForReflection
 public class Installation {
@@ -53,7 +53,7 @@ public class Installation {
         Installation that = (Installation) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(name, that.name) &&
-                Timestamp.isEqual(timestamp, that.timestamp) &&
+                TimestampUtil.isEqual(timestamp, that.timestamp) &&
                 Objects.equals(value, that.value) &&
                 Objects.equals(lon, that.lon) &&
                 Objects.equals(lat, that.lat) &&

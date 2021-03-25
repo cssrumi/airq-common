@@ -8,9 +8,9 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
 import java.io.IOException;
-import pl.airq.common.vo.Measurement;
+import pl.airq.common.domain.vo.Measurement;
 
-public class MeasurementDeserializer extends JsonDeserializer<Measurement> {
+public final class MeasurementDeserializer extends JsonDeserializer<Measurement> {
 
     private final Logger LOGGER = LoggerFactory.getLogger(MeasurementDeserializer.class);
 

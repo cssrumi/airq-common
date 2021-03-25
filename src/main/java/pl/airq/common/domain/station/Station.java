@@ -4,8 +4,8 @@ import io.quarkus.runtime.annotations.RegisterForReflection;
 import io.vertx.mutiny.sqlclient.Row;
 import java.util.Objects;
 import java.util.StringJoiner;
-import pl.airq.common.vo.StationId;
-import pl.airq.common.vo.StationLocation;
+import pl.airq.common.domain.vo.StationId;
+import pl.airq.common.domain.vo.StationLocation;
 
 @RegisterForReflection
 public class Station {

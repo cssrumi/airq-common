@@ -9,7 +9,7 @@ import java.util.Objects;
 import java.util.StringJoiner;
 import org.apache.commons.lang3.StringUtils;
 import pl.airq.common.domain.station.Station;
-import pl.airq.common.util.Timestamp;
+import pl.airq.common.util.TimestampUtil;
 
 @RegisterForReflection
 public class GiosMeasurement {
@@ -81,7 +81,7 @@ public class GiosMeasurement {
             return false;
         }
         GiosMeasurement that = (GiosMeasurement) o;
-        return Timestamp.isEqual(timestamp, that.timestamp) &&
+        return TimestampUtil.isEqual(timestamp, that.timestamp) &&
                 Objects.equals(station, that.station) &&
                 Objects.equals(pm10, that.pm10) &&
                 Objects.equals(pm25, that.pm25);

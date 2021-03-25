@@ -3,7 +3,7 @@ package pl.airq.common.infrastructure.kafka;
 import com.google.common.base.Preconditions;
 import org.apache.kafka.common.serialization.Serializer;
 import org.apache.kafka.common.serialization.StringSerializer;
-import pl.airq.common.store.key.SKey;
+import pl.airq.common.infrastructure.store.key.SKey;
 
 public class SKeySerializer implements Serializer<SKey> {
 

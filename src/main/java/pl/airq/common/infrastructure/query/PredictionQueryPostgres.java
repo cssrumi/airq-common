@@ -10,7 +10,7 @@ import pl.airq.common.domain.prediction.Prediction;
 import pl.airq.common.domain.prediction.PredictionConfig;
 import pl.airq.common.domain.prediction.PredictionQuery;
 import pl.airq.common.infrastructure.persistance.DomainObjectMapper;
-import pl.airq.common.vo.StationId;
+import pl.airq.common.domain.vo.StationId;
 
 @ApplicationScoped
 public class PredictionQueryPostgres implements PredictionQuery {

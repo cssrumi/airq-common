@@ -3,7 +3,7 @@ package pl.airq.common.domain.enriched;
 import io.smallrye.mutiny.Uni;
 import java.time.OffsetDateTime;
 import java.util.Set;
-import pl.airq.common.vo.StationId;
+import pl.airq.common.domain.vo.StationId;
 
 public interface EnrichedDataQuery {
 

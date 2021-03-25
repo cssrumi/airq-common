@@ -9,7 +9,7 @@ import javax.inject.Inject;
 import pl.airq.common.domain.station.Station;
 import pl.airq.common.domain.station.StationQuery;
 import pl.airq.common.infrastructure.persistance.SqlLike;
-import pl.airq.common.vo.StationId;
+import pl.airq.common.domain.vo.StationId;
 
 @ApplicationScoped
 public class StationQueryPostgres implements StationQuery {

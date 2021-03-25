@@ -1,7 +1,7 @@
 package pl.airq.common.domain;
 
 import io.smallrye.mutiny.Uni;
-import pl.airq.common.store.key.Key;
+import pl.airq.common.infrastructure.store.key.Key;
 
 public interface Removable<T, K extends Key> {
 

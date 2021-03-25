@@ -18,7 +18,7 @@ class FailureNotificationFactory {
         FailureNotificationDto dto = new FailureNotificationDto();
         dto.applicationName = applicationName;
         dto.groups = groups;
-        dto.timestamp = failure.timestamp;
+        dto.timestamp = failure.timestamp.asOffsetDateTime();
         dto.errorMessage = failure.payload.throwable.getMessage();
         dto.stackTrace = ExceptionUtils.getStackTrace(failure.payload.throwable);
 

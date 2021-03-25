@@ -4,10 +4,11 @@ import io.quarkus.test.junit.QuarkusTest;
 import java.time.OffsetDateTime;
 import javax.inject.Inject;
 import org.junit.jupiter.api.Test;
+import pl.airq.common.domain.vo.Timestamp;
 import pl.airq.common.process.ctx.internal.AirqMeasurementEvent;
 import pl.airq.common.process.ctx.internal.AirqMeasurementPayload;
 import pl.airq.common.process.event.AirqEvent;
-import pl.airq.common.vo.Measurement;
+import pl.airq.common.domain.vo.Measurement;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -31,7 +32,7 @@ class EventParserTest {
         final AirqMeasurementPayload payload = new AirqMeasurementPayload();
         payload.humidity = Measurement.fromInteger(123);
         payload.temperature = Measurement.fromString("4321");
-        final AirqMeasurementEvent event = new AirqMeasurementEvent(OffsetDateTime.now(), payload);
+        final AirqMeasurementEvent event = new AirqMeasurementEvent(Timestamp.now(), payload);
         final String serializedEvent = parser.parse(event);
 
         final AirqEvent<?> airqEvent = parser.deserializeDomainEvent(serializedEvent);

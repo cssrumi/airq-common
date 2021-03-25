@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import pl.airq.common.domain.phenotype.AirqPhenotype;
 import pl.airq.common.domain.prediction.Prediction;
 import pl.airq.common.domain.prediction.PredictionConfig;
-import pl.airq.common.vo.StationId;
+import pl.airq.common.domain.vo.StationId;
 
 @ApplicationScoped
 public class DomainObjectMapper {

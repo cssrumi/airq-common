@@ -2,7 +2,7 @@ package pl.airq.common.domain.phenotype;
 
 import io.smallrye.mutiny.Uni;
 import java.util.Set;
-import pl.airq.common.vo.StationId;
+import pl.airq.common.domain.vo.StationId;
 
 public interface AirqPhenotypeQuery {
 

@@ -3,9 +3,9 @@ package pl.airq.common.domain.internal;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import java.time.OffsetDateTime;
 import java.util.StringJoiner;
-import pl.airq.common.vo.Measurement;
-import pl.airq.common.vo.StationId;
-import pl.airq.common.vo.StationLocation;
+import pl.airq.common.domain.vo.Measurement;
+import pl.airq.common.domain.vo.StationId;
+import pl.airq.common.domain.vo.StationLocation;
 
 @RegisterForReflection
 public final class AirqMeasurement {

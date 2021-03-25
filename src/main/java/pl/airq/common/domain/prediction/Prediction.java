@@ -6,8 +6,8 @@ import io.quarkus.runtime.annotations.RegisterForReflection;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.StringJoiner;
-import pl.airq.common.util.Timestamp;
-import pl.airq.common.vo.StationId;
+import pl.airq.common.util.TimestampUtil;
+import pl.airq.common.domain.vo.StationId;
 
 @RegisterForReflection
 public class Prediction {
@@ -37,7 +37,7 @@ public class Prediction {
             return false;
         }
         Prediction that = (Prediction) o;
-        return Timestamp.isEqual(timestamp, that.timestamp) &&
+        return TimestampUtil.isEqual(timestamp, that.timestamp) &&
                 Objects.equals(value, that.value) &&
                 Objects.equals(config, that.config) &&
                 Objects.equals(stationId, that.stationId);

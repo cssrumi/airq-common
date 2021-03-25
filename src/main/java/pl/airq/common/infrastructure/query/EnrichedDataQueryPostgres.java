@@ -9,7 +9,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import pl.airq.common.domain.enriched.EnrichedData;
 import pl.airq.common.domain.enriched.EnrichedDataQuery;
-import pl.airq.common.vo.StationId;
+import pl.airq.common.domain.vo.StationId;
 
 @ApplicationScoped
 public class EnrichedDataQueryPostgres implements EnrichedDataQuery {

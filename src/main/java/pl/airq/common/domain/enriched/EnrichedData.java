@@ -5,10 +5,9 @@ import io.vertx.mutiny.sqlclient.Row;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.StringJoiner;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 import pl.airq.common.domain.DataProvider;
-import pl.airq.common.util.Timestamp;
-import pl.airq.common.vo.StationId;
+import pl.airq.common.util.TimestampUtil;
+import pl.airq.common.domain.vo.StationId;
 
 @RegisterForReflection
 public final class EnrichedData {
@@ -69,7 +68,7 @@ public final class EnrichedData {
             return false;
         }
         EnrichedData that = (EnrichedData) o;
-        return Timestamp.isEqual(timestamp, that.timestamp) &&
+        return TimestampUtil.isEqual(timestamp, that.timestamp) &&
                 Objects.equals(pm10, that.pm10) &&
                 Objects.equals(pm25, that.pm25) &&
                 Objects.equals(temp, that.temp) &&

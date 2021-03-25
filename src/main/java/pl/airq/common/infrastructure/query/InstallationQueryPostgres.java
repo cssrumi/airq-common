@@ -8,7 +8,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import pl.airq.common.domain.gios.Installation;
 import pl.airq.common.domain.gios.InstallationQuery;
-import pl.airq.common.store.key.TSFKey;
+import pl.airq.common.infrastructure.store.key.TSFKey;
 
 @ApplicationScoped
 public class InstallationQueryPostgres implements InstallationQuery {

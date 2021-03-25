@@ -4,9 +4,9 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import java.io.IOException;
-import pl.airq.common.vo.Measurement;
+import pl.airq.common.domain.vo.Measurement;
 
-public class MeasurementSerializer extends JsonSerializer<Measurement> {
+public final class MeasurementSerializer extends JsonSerializer<Measurement> {
     @Override
     public void serialize(Measurement measurement, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         jsonGenerator.writeNumber(measurement.getValue());

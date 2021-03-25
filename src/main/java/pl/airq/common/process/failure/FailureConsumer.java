@@ -24,7 +24,7 @@ public class FailureConsumer {
         return Multi.createFrom().iterable(handlers)
                     .call(handler -> handler.handle(failure))
                     .onOverflow().buffer(5)
-                    .collect().asList()
+                    .select().last().toUni()
                     .onItem().ignore().andContinueWithNull();
     }
 }

@@ -85,7 +85,7 @@ abstract class AbstractStore<K, V> implements Store<K, V> {
                           .emitOn(executor)
                           .call(map -> Multi.createFrom().iterable(map.entrySet())
                                             .call(entry -> upsert(entry.getKey(), entry.getValue()))
-                                            .collectItems().with(Collectors.counting())
+                                            .collect().with(Collectors.counting())
                                             .invoke(count -> LOGGER.info("{} items pulled from pull layer.", count)));
     }
 
@@ -95,7 +95,7 @@ abstract class AbstractStore<K, V> implements Store<K, V> {
                           .emitOn(executor)
                           .call(map -> Multi.createFrom().iterable(map.entrySet())
                                             .call(entry -> upsert(entry.getKey(), entry.getValue()))
-                                            .collectItems().with(Collectors.counting())
+                                            .collect().with(Collectors.counting())
                                             .invoke(count -> LOGGER.info("{} items pulled from pull layer.", count)));
     }
 
@@ -103,14 +103,14 @@ abstract class AbstractStore<K, V> implements Store<K, V> {
     public Uni<V> upsert(K key, V value) {
         return value == null ? delete(key).map(ignore -> value) :
                 propagateAll(layer -> layer.upsert(key, value), PropagationOrder.TO_LOWER)
-                        .collectItems().asList()
+                        .collect().asList()
                         .onItem().transform(ignore -> value);
     }
 
     @Override
     public Uni<Void> delete(K key) {
         return propagateAll(layer -> layer.delete(key), PropagationOrder.TO_LOWER)
-                .collectItems().asList()
+                .collect().asList()
                 .onItem().transform(this::toVoid);
     }
 
